@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Console;
+namespace OtcCms\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use OtcCms\Console\Commands\CreateUser;
 
 class Kernel extends ConsoleKernel
 {
@@ -14,6 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+        CreateUser::class,
     ];
 
     /**
