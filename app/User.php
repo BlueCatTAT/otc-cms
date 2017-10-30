@@ -4,12 +4,20 @@ namespace OtcCms;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use OtcCms\Models\Validatable;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use Validatable;
 
     public $table = 'cms_users';
+
+    private $rules = [
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|max:255|unique:cms_users',
+        'password' => 'required|string|min:6',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -28,4 +36,5 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
 }

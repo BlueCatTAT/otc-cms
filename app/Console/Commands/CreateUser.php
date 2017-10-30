@@ -42,22 +42,20 @@ class CreateUser extends Command
         $email = $this->argument('email');
         $name = $this->argument('name');
         $password = $this->argument('password');
-        $validator = Validator::make(compact([
-            'email', 'name', 'password'
-        ]), [
-            'email' => 'email',
-            'name' => 'required|min:2',
-            'password' => 'min:6'
-        ]);
-        if ($validator->fails()) {
-            dd($validator->errors());
-            return $this->error('');
+        $data = compact(['email', 'name', 'password']);
+        $user = new User();
+        if (!$user->validate($data)) {
+            foreach ($user->errors() as $message) {
+                $this->error($message);
+            }
+            return;
         }
 
-        return User::create([
-            'name' => $name,
-            'email' => $email,
-            'password' => bcrypt($password),
-        ]);
+        try {
+            $user->fill($data);
+            $user->save();
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
+        }
     }
 }
