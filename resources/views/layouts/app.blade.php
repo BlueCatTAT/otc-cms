@@ -36,7 +36,13 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">提现 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ url('withdraw_list') }}">提现请求</a></li>
+                                <li><a href="{{ url('withdraw_log') }}">提现操作日志</a></li>
+                            </ul>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

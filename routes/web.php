@@ -14,3 +14,8 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::prefix('withdraw')->group(function() {
+    Route::get('/', 'WithdrawController@index')->name('withdraw_list');
+    Route::get('/log', 'WithdrawController@logList')->name('withdraw_log');
+});
