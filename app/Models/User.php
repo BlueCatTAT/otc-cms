@@ -1,10 +1,9 @@
 <?php
 
-namespace OtcCms;
+namespace OtcCms\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use OtcCms\Models\Validatable;
 
 class User extends Authenticatable
 {

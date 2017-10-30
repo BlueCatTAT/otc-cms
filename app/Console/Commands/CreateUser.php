@@ -2,7 +2,7 @@
 
 namespace OtcCms\Console\Commands;
 
-use OtcCms\User;
+use OtcCms\Models\User;
 use Illuminate\Console\Command;
 use Validator;
 
@@ -52,6 +52,7 @@ class CreateUser extends Command
         }
 
         try {
+            $data['password'] = bcrypt($data['password']);
             $user->fill($data);
             $user->save();
         } catch (\Exception $e) {

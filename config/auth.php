@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => OtcCms\User::class,
+            'model' => OtcCms\Models\User::class,
         ],
 
         // 'users' => [
