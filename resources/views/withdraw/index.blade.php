@@ -52,27 +52,34 @@
                             <td>{{ $withdraw->amount }}</td>
                             <td>{{ $withdraw->create_time }}</td>
                             <td>
-                                @if ($withdraw->audit_time)
-                                {{ $withdraw->audit_time }}
-                                @else
-                                ----
-                                @endif
+                                {{ $withdraw->audit_time or '----' }}
                             </td>
                             <td>
-                                @if ($withdraw->finish_time)
-                                    {{ $withdraw->finish_time }}
-                                @else
-                                    ----
-                                @endif
+                                {{ $withdraw->finish_time or '----' }}
                             </td>
-                            <td>{{ $withdraw->getStatusText() }}</td>
                             <td>
-                                @if ($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_PENDING
-                                || $withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_FAIL)
-                                    <button class="btn btn-default" type="button">通过</button>
-                                    <button class="btn btn-default" type="button">不通过</button>
+                                <span class="label
+                                    @if($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_PENDING)
+                                        label-default
+                                    @elseif($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_FAIL)
+                                        label-danger
+                                    @elseif($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_SUCCESS)
+                                        label-success
+                                    @else
+                                        label-warning
                                 @endif
-                                <button class="btn btn-default" type="button">查看</button>
+                                ">
+                                    {{ $withdraw->getStatusText() }}
+                                </span>
+                            </td>
+                            <td>
+                                @if ($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_PENDING)
+                                    <span class="glyphicon glyphicon-ok"></span>
+                                    <span class="glyphicon glyphicon-remove" ></span>
+                                @elseif ($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_FAIL)
+                                    <span class="glyphicon glyphicon-repeat"></span>
+                                @endif
+                                <span class="glyphicon glyphicon-eye-open"></span>
                             </td>
                         </tr>
                     @endforeach
