@@ -38,4 +38,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function getRole()
+    {
+        return $this->roles()->get()->first();
+    }
+
 }

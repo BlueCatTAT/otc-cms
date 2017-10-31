@@ -19,3 +19,9 @@ Route::prefix('withdraw')->group(function() {
     Route::get('/', 'WithdrawController@index')->name('withdraw_list');
     Route::get('/log', 'WithdrawController@logList')->name('withdraw_log');
 });
+
+Route::prefix('cms-user')->middleware(['role:admin'])->group(function() {
+    Route::get('/', 'CmsUserController@index')->name('cms_user_list');
+    Route::get('/{id}', 'CmsUserController@show')->name('cms_user_detail');
+    Route::post('/{id}', 'CmsUserController@update')->name('cms_user_update');
+});
