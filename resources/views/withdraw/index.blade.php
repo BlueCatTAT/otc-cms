@@ -38,6 +38,8 @@
                         <th>用户名称</th>
                         <th>数量</th>
                         <th>创建时间</th>
+                        <th>审核时间</th>
+                        <th>提现时间</th>
                         <th>状态</th>
                         <th>操作</th>
                     </tr>
@@ -49,9 +51,28 @@
                             <td>{{ $withdraw->uname }}</td>
                             <td>{{ $withdraw->amount }}</td>
                             <td>{{ $withdraw->create_time }}</td>
+                            <td>
+                                @if ($withdraw->audit_time)
+                                {{ $withdraw->audit_time }}
+                                @else
+                                ----
+                                @endif
+                            </td>
+                            <td>
+                                @if ($withdraw->finish_time)
+                                    {{ $withdraw->finish_time }}
+                                @else
+                                    ----
+                                @endif
+                            </td>
                             <td>{{ $withdraw->getStatusText() }}</td>
                             <td>
-                                <button type="button"></button>
+                                @if ($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_PENDING
+                                || $withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_FAIL)
+                                    <button class="btn btn-default" type="button">通过</button>
+                                    <button class="btn btn-default" type="button">不通过</button>
+                                @endif
+                                <button class="btn btn-default" type="button">查看</button>
                             </td>
                         </tr>
                     @endforeach
