@@ -17,5 +17,16 @@
     "laravel-mix": "^1.0",
     "lodash": "^4.17.4",
     "vue": "^2.1.10"
+  },
+  "name": "otc_cms",
+  "version": "1.0.0",
+  "description": "A CMS for otc",
+  "main": "index.js",
+  "repository": "git@116.62.239.97:OTC/otc_cms.git",
+  "author": "彭驰 <pengchi@howzhi.com>",
+  "license": "MIT",
+  "dependencies": {
+    "node-sass": "^4.5.3",
+    "pretty-checkbox": "^3.0.3"
   }
 }

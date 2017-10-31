@@ -7,3 +7,10 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Pretty checkbox
+@import "node_modules/pretty-checkbox/src/pretty-checkbox";
+
+.checkbox-form {
+  padding-top: 7px;
+}
