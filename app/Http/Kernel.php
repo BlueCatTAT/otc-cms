@@ -3,6 +3,9 @@
 namespace OtcCms\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use Zizaco\Entrust\Middleware\EntrustRole;
+use Zizaco\Entrust\Middleware\EntrustPermission;
+use Zizaco\Entrust\Middleware\EntrustAbility;
 
 class Kernel extends HttpKernel
 {
@@ -56,5 +59,8 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \OtcCms\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'role' => EntrustRole::class,
+        'permission' => EntrustPermission::class,
+        'ability' => EntrustAbility::class,
     ];
 }
