@@ -39,6 +39,7 @@
                         <th>数量</th>
                         <th>创建时间</th>
                         <th>状态</th>
+                        <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -49,6 +50,9 @@
                             <td>{{ $withdraw->amount }}</td>
                             <td>{{ $withdraw->create_time }}</td>
                             <td>{{ $withdraw->getStatusText() }}</td>
+                            <td>
+                                <button type="button"></button>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>
