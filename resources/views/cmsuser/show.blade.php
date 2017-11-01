@@ -3,6 +3,18 @@
 @section('content')
     <div class="container">
         <form class="form-horizontal" action="{{route('cms_user_update', [$user->id])}}" method="post">
+            {{ csrf_field() }}
+            <div class="form-group">
+                <div class="col-sm-12">
+                @if ($errors->any())
+                    <div class="alert alert-danger">{{ $errors->first() }}</div>
+                @endif
+                @if (session('updateSuccess'))
+                    <div class="alert alert-success">更新成功</div>
+                @endif
+                </div>
+            </div>
+
             <div class="form-group">
                 <label class="col-sm-2 control-label">名称</label>
                 <div class="col-sm-10">

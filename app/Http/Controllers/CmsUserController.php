@@ -7,6 +7,7 @@ use OtcCms\Models\Role;
 use OtcCms\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Factory as Validator;
+use Log;
 
 class CmsUserController extends Controller
 {
@@ -37,33 +38,42 @@ class CmsUserController extends Controller
     public function update($id, Request $request, Validator $validator)
     {
         $user = User::find($id);
-        $role = Role::find($request->get('roleId'));
+        $role = Role::find($request->input('roleId'));
         if (empty($user)) {
-            redirect('cms_user_list');
+            return redirect('cms_user_list');
         }
         if (empty($role)) {
-            redirect('cms_user_detail', [$user->id]);
+            return redirect()->back();
         }
-        if (!$user->getRole() || $user->getRole()->id != $role->id) {
+
+        if (!$user->getRole()) {
+            $user->attachRole($role);
+        } elseif ($user->getRole() && $user->getRole()->id != $role->id) {
+            $user->detachRole($user->getRole());
             $user->attachRole($role);
         }
-        $v = $validator->make($request->all(), [
+
+
+        $password = $request->input('password');
+        if (empty($password)) {
+            return redirect()->back()->with('updateSuccess', true);
+        }
+
+        $this->validate($request, [
             'password' => 'required|confirmed'
         ]);
-        if ($v->fails()) {
-            redirect('cms_user_detail', [$user->id])->with('errors', $v->errors());
-        }
-        $user->password = bcrypt($request->input('password'));
+
+        $user->password = bcrypt($password);
         try {
             $user->save();
-            redirect('cms_user_detail', [$user->id])->with('updateSuccess', true);
         } catch (\Exception $e) {
             Log::error($e->getMessage(), [
                 'userId' => $user->id,
                 'roleId' => $request->input('roleId'),
                 'context' => __CLASS__.':'.__METHOD__,
             ]);
-            redirect('cms_user_detail', [$user->id])->with('updateSuccess', false);
+            return redirect()->back()->withErrors($e->getMessage());
         }
+        return redirect()->back()->with('updateSuccess', true);
     }
 }
