@@ -2,6 +2,9 @@
 
 @section('content')
     <div class="container">
+        <ol class="breadcrumb">
+            <li class="active">提现申请</li>
+        </ol>
         <div class="row">
             <div class="col-md-12">
             <div class="panel panel-default">
@@ -74,12 +77,13 @@
                             </td>
                             <td>
                                 @if ($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_PENDING)
-                                    <span class="glyphicon glyphicon-ok"></span>
-                                    <span class="glyphicon glyphicon-remove" ></span>
+                                    <span class="glyphicon glyphicon-ok audit-confirm-btn text-success"
+                                    data-content-url="{{ route('withdraw_audit_confirm_modal', [$withdraw->id]) }}"></span>
+                                    <span class="glyphicon glyphicon-remove text-danger"></span>
                                 @elseif ($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_FAIL)
                                     <span class="glyphicon glyphicon-repeat"></span>
                                 @endif
-                                <span class="glyphicon glyphicon-eye-open"></span>
+                                <a href="{{route('withdraw_detail', [$withdraw->id])}}" class="glyphicon glyphicon-eye-open"></a>
                             </td>
                         </tr>
                     @endforeach
@@ -90,4 +94,11 @@
         </div>
         {{ $withdrawList->links() }}
     </div>
+
+    {{-- Modal --}}
+    <div class="modal fade" id="audit-pass-modal" tabindex="-1" role="dialog"></div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/withdraw/index.js') }}"></script>
 @endsection

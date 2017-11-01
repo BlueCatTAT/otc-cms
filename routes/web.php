@@ -17,6 +17,9 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::prefix('withdraw')->group(function() {
     Route::get('/', 'WithdrawController@index')->name('withdraw_list');
+    Route::get('/{id}', 'WithdrawController@show')->name('withdraw_detail');
+    Route::post('/{id}/audit', 'WithdrawController@audit')->name('withdraw_audit');
+    Route::get('/{id}/audit-confirm-modal', 'WithdrawController@auditConfirmModal')->name('withdraw_audit_confirm_modal');
     Route::get('/log', 'WithdrawController@logList')->name('withdraw_log');
 });
 

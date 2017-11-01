@@ -35,7 +35,10 @@ final class WithdrawStatus
     public static function valueOf($status)
     {
         $status = (int) $status;
-        return new self($status);
+        if (empty(self::$statusList[$status])) {
+            self::$statusList[$status] = new self($status);
+        }
+        return self::$statusList[$status];
     }
 
     /**
@@ -43,9 +46,9 @@ final class WithdrawStatus
      */
     public static function getStatusList()
     {
-        if (empty(self::$statusList)) {
+        if (count(self::$statusList) != count(self::$validStatus)) {
             foreach (self::$validStatus as $status) {
-                self::$statusList[$status] = self::valueOf($status);
+                self::valueOf($status);
             }
         }
 

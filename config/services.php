@@ -30,9 +30,12 @@ return [
     ],
 
     'stripe' => [
-        'model' => OtcCms\User::class,
+        'model' => OtcCms\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'otc_server' => [
+        'host' => env('OTC_SERVER_HOST', '127.0.0.1'),
+    ],
 ];

@@ -176,6 +176,7 @@ return [
         // OtcCms\Providers\BroadcastServiceProvider::class,
         OtcCms\Providers\EventServiceProvider::class,
         OtcCms\Providers\RouteServiceProvider::class,
+        OtcCms\Providers\OtcServerServiceProvider::class,
         Barryvdh\Debugbar\ServiceProvider::class,
         \Zizaco\Entrust\EntrustServiceProvider::class,
 

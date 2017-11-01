@@ -25,4 +25,8 @@ class Withdraw extends Model
         return $this->statusObj->getStatusText();
     }
 
+    public function auditLogs()
+    {
+        return $this->hasMany(WithdrawAuditLog::class, 'withdraw_id');
+    }
 }
