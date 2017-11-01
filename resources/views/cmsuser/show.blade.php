@@ -2,6 +2,10 @@
 
 @section('content')
     <div class="container">
+        <ol class="breadcrumb">
+            <li><a href="{{route('cms_user_list')}}">用户列表</a></li>
+            <li class="active">{{$user->name}}</li>
+        </ol>
         <form class="form-horizontal" action="{{route('cms_user_update', [$user->id])}}" method="post">
             {{ csrf_field() }}
             <div class="form-group">
