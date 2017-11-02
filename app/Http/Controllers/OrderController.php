@@ -13,10 +13,13 @@ class OrderController extends Controller
     public function index(Request $request, OrderRepositoryInterface $orderRepository)
     {
         $type = (int) $request->get('type', OrderType::BUY);
+        // When the query has no type parameter, set default value
+        $request->query->set('type', $type);
         $customerName = $request->get('nickname', '');
         $orderList = $orderRepository->paginateWithTypeAndCustomerName($type, $customerName);
         return view('order.index', [
             'orderList' => $orderList,
+            'orderTypeList' => OrderType::all(),
         ]);
     }
 

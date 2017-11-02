@@ -29,6 +29,13 @@ final class OrderType
         return new self($typeCode);
     }
 
+    public static function all()
+    {
+        return array_map(function($code) {
+            return self::valueOf($code);
+        }, array_keys(self::$texts));
+    }
+
     /**
      * @return mixed
      */

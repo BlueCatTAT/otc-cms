@@ -5,6 +5,13 @@
         <ol class="breadcrumb">
             <li class="active">订单管理</li>
         </ol>
+        <ul class="nav nav-tabs">
+            @foreach($orderTypeList as $orderType)
+                <li role="presentation" @if($orderType->getCode() == request('type')) class="active" @endif>
+                    <a href="{{ route('order_list', ['type' => $orderType->getCode()]) }}">{{ $orderType->getText() }}</a>
+                </li>
+            @endforeach
+        </ul>
         <div class="panel panel-default">
             <div class="panel-heading">查询条件</div>
             <div class="panel-body">
