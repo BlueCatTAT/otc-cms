@@ -8,7 +8,7 @@
 
 namespace OtcCms\Services\OtcServer;
 
-interface WithdrawInterface
+interface WithdrawServiceInterface
 {
     /**
      * @param int $withdrawId

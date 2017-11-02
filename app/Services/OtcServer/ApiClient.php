@@ -17,17 +17,12 @@ class ApiClient
      */
     private $client;
 
-    private function __construct(Log $log)
+    public function __construct(Log $log)
     {
         $this->client = new Client([
             'base_uri' => config('services.otc_server.host')
         ]);
         $this->log = $log;
-    }
-
-    public static function getInstance(Log $log)
-    {
-        return new self($log);
     }
 
     /**
@@ -50,13 +45,25 @@ class ApiClient
             return ApiResponse::exception($e->getMessage());
         }
 
+        $body = $response->getBody();
+        $this->log->info($body, [
+            'context' => 'ApiClient response body',
+            'endpoint' => $endpoint,
+            'data' => $data,
+        ]);
+
         if ($response->getStatusCode() != 200) {
-            return ApiResponse::exception($response->getBody());
+            return ApiResponse::exception($body);
         }
-        $result = @json_decode($response->getBody());
-        if (empty($result)) {
-            return ApiResponse::exception($response->getBody());
+        $result = @json_decode($body, true);
+        if (empty($result) || empty($result['code'])) {
+            return ApiResponse::exception($body);
         }
-        return ApiResponse::create($result['code'], $result['msg'], $result['data']);
+
+        return ApiResponse::create(
+            $result['code'],
+            isset($result['msg']) ? $result['msg'] : '',
+            isset($result['data']) ? $result['data']: []
+        );
     }
 }

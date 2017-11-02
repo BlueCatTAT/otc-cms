@@ -36,6 +36,6 @@ return [
     ],
 
     'otc_server' => [
-        'host' => env('OTC_SERVER_HOST', '127.0.0.1'),
+        'host' => env('OTC_SERVER_HOST', 'http://127.0.0.1'),
     ],
 ];

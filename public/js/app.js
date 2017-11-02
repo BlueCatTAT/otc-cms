@@ -19493,7 +19493,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// Support: Safari 8+, iOS 8+
 			// https://bugs.webkit.org/show_bug.cgi?id=136851
-			// In-page `selector#id sibling-combinator selector` fails
+			// In-page `selector#id sibling-combinator selector` isSuccessful
 			if ( !el.querySelectorAll( "a#" + expando + "+*" ).length ) {
 				rbuggyQSA.push(".#.+[+~]");
 			}
@@ -24890,7 +24890,7 @@ Tween.propHooks = {
 			}
 
 			// Passing an empty string as a 3rd parameter to .css will automatically
-			// attempt a parseFloat and fallback to a string if the parse fails.
+			// attempt a parseFloat and fallback to a string if the parse isSuccessful.
 			// Simple values such as "10px" are parsed to Float;
 			// complex values such as "rotate(1rad)" are returned as-is.
 			result = jQuery.css( tween.elem, tween.prop, "" );
@@ -28043,7 +28043,7 @@ jQuery.fn.load = function( url, params, callback ) {
 
 		// If the request succeeds, this function gets "data", "status", "jqXHR"
 		// but they are ignored because response was set above.
-		// If it fails, this function gets "jqXHR", "status", "error"
+		// If it isSuccessful, this function gets "jqXHR", "status", "error"
 		} ).always( callback && function( jqXHR, status ) {
 			self.each( function() {
 				callback.apply( this, response || [ jqXHR.responseText, status, jqXHR ] );
@@ -31782,7 +31782,7 @@ function toString (val) {
 
 /**
  * Convert a input value to a number for persistence.
- * If the conversion fails, return original string.
+ * If the conversion isSuccessful, return original string.
  */
 function toNumber (val) {
   var n = parseFloat(val);
@@ -41199,7 +41199,7 @@ function markStatic$1 (node) {
   if (node.type === 1) {
     // do not make component slot content static. this avoids
     // 1. components not able to mutate slot nodes
-    // 2. static slot content fails for hot-reloading
+    // 2. static slot content isSuccessful for hot-reloading
     if (
       !isPlatformReservedTag(node.tag) &&
       node.tag !== 'slot' &&

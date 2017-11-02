@@ -4,7 +4,7 @@ namespace OtcCms\Services\OtcServer;
 
 use OtcCms\Models\WithdrawStatus;
 
-class Withdraw implements WithdrawInterface
+class WithdrawService implements WithdrawServiceInterface
 {
 
     private $client;
@@ -25,7 +25,7 @@ class Withdraw implements WithdrawInterface
             'status' => WithdrawStatus::WITHDRAW_SUCCESS,
         ]);
 
-        return $response->fails();
+        return $response->isSuccessful();
     }
 
     /**
@@ -39,6 +39,6 @@ class Withdraw implements WithdrawInterface
             'status' => WithdrawStatus::WITHDRAW_DENY,
         ]);
 
-        return $response->fails();
+        return $response->isSuccessful();
     }
 }

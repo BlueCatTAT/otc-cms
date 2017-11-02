@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use OtcCms\Exceptions\WithdrawNotFoundException;
 use OtcCms\Models\Withdraw;
 use OtcCms\Models\WithdrawStatus;
-use OtcCms\Services\OtcServer\WithdrawInterface;
+use OtcCms\Services\OtcServer\WithdrawServiceInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class WithdrawController extends Controller
@@ -45,21 +45,31 @@ class WithdrawController extends Controller
         ]);
     }
 
-    public function audit($id, Request $request, WithdrawInterface $withdrawService)
+    public function audit($id, Request $request, WithdrawServiceInterface $withdrawService)
     {
         $withdraw = Withdraw::with(['auditLogs'])->find($id);
         if (empty($withdraw)) {
             throw new WithdrawNotFoundException();
         }
 
-        $status = $request->input('status');
+        $status = (int) $request->input('status');
+        $message = '操作失败';
+        $result = false;
         if ($status === WithdrawStatus::WITHDRAW_SUCCESS) {
-            $withdrawService->confirm($withdraw->id);
+            if ($result = $withdrawService->confirm($withdraw->id)) {
+                $message = '提币成功';
+            }
         } else if ($status === WithdrawStatus::WITHDRAW_DENY) {
-            $withdrawService->deny($withdraw->id);
+            if ($result = $withdrawService->deny($withdraw->id))  {
+                $message = '审核成功';
+            }
         }
 
-        return redirect()->back();
+        if ($result) {
+            return redirect()->back()->with('message', $message);
+        } else {
+            return redirect()->back()->withErrors($message);
+        }
     }
 
     public function auditConfirmModal($id)

@@ -12,7 +12,7 @@ final class ApiResponse
 
     private function __construct($code, $message, $data)
     {
-        $this->code = $code;
+        $this->code = (int) $code;
         $this->message = $message;
         $this->data = $data;
     }
@@ -30,9 +30,9 @@ final class ApiResponse
     /**
      * @return bool
      */
-    public function fails()
+    public function isSuccessful()
     {
-        return $this->code !== 0;
+        return $this->code === 0;
     }
 
     /**

@@ -5,8 +5,8 @@ namespace OtcCms\Providers;
 use function foo\func;
 use Illuminate\Support\ServiceProvider;
 use OtcCms\Services\OtcServer\ApiClient;
-use OtcCms\Services\OtcServer\Withdraw;
-use OtcCms\Services\OtcServer\WithdrawInterface;
+use OtcCms\Services\OtcServer\WithdrawService;
+use OtcCms\Services\OtcServer\WithdrawServiceInterface;
 
 class OtcServerServiceProvider extends ServiceProvider
 {
@@ -27,13 +27,9 @@ class OtcServerServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->instance(
-            'otc.apiclient',
-            ApiClient::getInstance($this->app->make('log')));
-
         $this->app->bind(
-            WithdrawInterface::class,
-            Withdraw::class
+            WithdrawServiceInterface::class,
+            WithdrawService::class
         );
     }
 }
