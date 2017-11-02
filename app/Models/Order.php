@@ -9,6 +9,10 @@ final class Order extends Model
     const CREATED_AT = 'create_time';
     const UPDATED_AT = 'update_time';
     /**
+     * @var OrderStatus
+     */
+    protected $statusObj;
+    /**
      * @var OrderType
      */
     private $typeObj;
@@ -23,6 +27,14 @@ final class Order extends Model
         return $this->typeObj->getText();
     }
 
+    public function getStatusText()
+    {
+        if (null === $this->statusObj) {
+            $this->statusObj = OrderStatus::valueOf($this->status);
+        }
+        return $this->statusObj->getText();
+    }
+
     /**
      * The one who pays the order
      *
@@ -30,7 +42,7 @@ final class Order extends Model
      */
     public function owner()
     {
-        return $this->hasOne(Customer::class, 'uid');
+        return $this->hasOne(Customer::class, 'id', 'uid');
     }
 
     /**
@@ -40,7 +52,7 @@ final class Order extends Model
      */
     public function publisher()
     {
-        return $this->hasOne(Customer::class, 'ad_uid');
+        return $this->hasOne(Customer::class, 'id', 'ad_uid');
     }
 
 }

@@ -23,8 +23,12 @@ class OrderController extends Controller
         ]);
     }
 
-    public function show()
+    public function show(Request $request)
     {
+        $order = $request->attributes->get('order');
 
+        return view('order.show', [
+            'order' => $order,
+        ]);
     }
 }

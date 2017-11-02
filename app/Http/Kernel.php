@@ -3,6 +3,7 @@
 namespace OtcCms\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
+use OtcCms\Http\Middleware\CheckOrderId;
 use OtcCms\Http\Middleware\CheckWithdrawId;
 use Zizaco\Entrust\Middleware\EntrustRole;
 use Zizaco\Entrust\Middleware\EntrustPermission;
@@ -64,5 +65,6 @@ class Kernel extends HttpKernel
         'permission' => EntrustPermission::class,
         'ability' => EntrustAbility::class,
         'withdraw.id' => CheckWithdrawId::class,
+        'order.id' => CheckOrderId::class,
     ];
 }

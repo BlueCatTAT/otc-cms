@@ -41,6 +41,7 @@
                     <th>交易金额</th>
                     <th>币种数量</th>
                     <th>状态</th>
+                    <th>操作</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -52,6 +53,10 @@
                         <td>{{$order->amount}}</td>
                         <td>{{$order->quantity}}</td>
                         <td>{{ \OtcCms\Models\OrderStatus::valueOf($order->status)->getText() }}</td>
+                        <td>
+                            <a href="{{ route('order_detail', [$order->id]) }}"
+                            class="glyphicon glyphicon-eye-open"></a>
+                        </td>
                     </tr>
                 @endforeach
                 </tbody>

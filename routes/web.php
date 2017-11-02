@@ -40,4 +40,5 @@ Route::prefix('cms-user')->middleware(['role:admin'])->group(function() {
 
 Route::prefix('order')->group(function() {
     Route::get('/', 'OrderController@index')->name('order_list');
+    Route::get('/{id}', 'OrderController@show')->name('order_detail')->middleware('order.id');
 });
