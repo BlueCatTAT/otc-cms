@@ -30,7 +30,7 @@
                     <form class="form-horizontal" method="get" action="{{ url()->current() }}">
                         <div class="form-group">
                             <label class="col-sm-2 control-label">订单状态</label>
-                            <div class="col-sm-5 checkbox-form">
+                            <div class="col-sm-10 checkbox-form">
                                 @foreach ($statusList as $status)
                                 <div class="pretty p-default">
                                     <input type="checkbox" value="{{ $status->getStatusCode() }}"

@@ -43,6 +43,7 @@
                                 <li><a href="{{ route('withdraw_log') }}">提现操作日志</a></li>
                             </ul>
                         </li>
+                        <li><a href="{{route("order_list")}}">订单管理</a></li>
                         @role('admin')
                         <li><a href="{{route("cms_user_list")}}">管理员列表</a></li>
                         @endrole

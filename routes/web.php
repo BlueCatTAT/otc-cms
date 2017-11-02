@@ -37,3 +37,7 @@ Route::prefix('cms-user')->middleware(['role:admin'])->group(function() {
     Route::get('/{id}', 'CmsUserController@show')->name('cms_user_detail');
     Route::post('/{id}', 'CmsUserController@update')->name('cms_user_update');
 });
+
+Route::prefix('order')->group(function() {
+    Route::get('/', 'OrderController@index')->name('order_list');
+});
