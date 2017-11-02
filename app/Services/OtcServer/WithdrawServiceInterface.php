@@ -8,17 +8,20 @@
 
 namespace OtcCms\Services\OtcServer;
 
+use OtcCms\Models\Withdraw;
+
 interface WithdrawServiceInterface
 {
     /**
-     * @param int $withdrawId
+     * @param Withdraw $withdraw
      * @return bool
      */
-    public function confirm($withdrawId);
+    public function confirm(Withdraw $withdraw);
 
     /**
-     * @param int $withdrawId
+     * @param Withdraw $withdraw
+     * @param string $comment
      * @return bool
      */
-    public function deny($withdrawId);
+    public function deny(Withdraw $withdraw, $comment);
 }

@@ -17,9 +17,18 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::prefix('withdraw')->group(function() {
     Route::get('/', 'WithdrawController@index')->name('withdraw_list');
-    Route::get('/{id}', 'WithdrawController@show')->name('withdraw_detail');
-    Route::post('/{id}/audit', 'WithdrawController@audit')->name('withdraw_audit');
-    Route::get('/{id}/audit-confirm-modal', 'WithdrawController@auditConfirmModal')->name('withdraw_audit_confirm_modal');
+    Route::get('/{id}', 'WithdrawController@show')->name('withdraw_detail')
+        ->middleware('withdraw.id');
+    Route::post('/{id}/confirm', 'WithdrawController@confirm')->name('withdraw_audit_confirm')
+        ->middleware('withdraw.id');
+    Route::post('/{id}/deny', 'WithdrawController@deny')->name('withdraw_audit_deny')
+        ->middleware('withdraw.id');
+    Route::get('/{id}/audit-confirm-modal', 'WithdrawController@auditConfirmModal')
+        ->name('withdraw_audit_confirm_modal')
+        ->middleware('withdraw.id');
+    Route::get('/{id}/audit-deny-modal', 'WithdrawController@auditDenyModal')
+        ->name('withdraw_audit_deny_modal')
+        ->middleware('withdraw.id');
     Route::get('/log', 'WithdrawController@logList')->name('withdraw_log');
 });
 

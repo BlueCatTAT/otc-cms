@@ -3,11 +3,13 @@
 namespace OtcCms\Http\Controllers;
 
 use Illuminate\Http\Request;
-use OtcCms\Exceptions\WithdrawNotFoundException;
 use OtcCms\Models\Withdraw;
+use OtcCms\Models\WithdrawAuditLog;
 use OtcCms\Models\WithdrawStatus;
 use OtcCms\Services\OtcServer\WithdrawServiceInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
+use Auth;
+
 
 class WithdrawController extends Controller
 {
@@ -19,7 +21,12 @@ class WithdrawController extends Controller
     public function index(Request $request)
     {
         $statusListKey = 'statusList';
-        $statusList = WithdrawStatus::getStatusList();
+        $statusList = [
+            WithdrawStatus::valueOf(WithdrawStatus::WITHDRAW_PENDING),
+            WithdrawStatus::valueOf(WithdrawStatus::WITHDRAW_SUCCESS),
+            WithdrawStatus::valueOf(WithdrawStatus::WITHDRAW_FAIL),
+            WithdrawStatus::valueOf(WithdrawStatus::WITHDRAW_DENY),
+        ];
         if (empty($request->get($statusListKey))) {
             $request->request->set($statusListKey, [WithdrawStatus::WITHDRAW_PENDING]);
         }
@@ -34,52 +41,57 @@ class WithdrawController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show(Request $request)
     {
-        $withdraw = Withdraw::with(['auditLogs'])->find($id);
-        if (empty($withdraw)) {
-            throw new WithdrawNotFoundException();
-        }
+        $withdraw = $request->get('withdraw');
         return view('withdraw.show', [
             'withdraw' => $withdraw,
         ]);
     }
 
-    public function audit($id, Request $request, WithdrawServiceInterface $withdrawService)
+    public function confirm(Request $request, WithdrawServiceInterface $withdrawService)
     {
-        $withdraw = Withdraw::with(['auditLogs'])->find($id);
-        if (empty($withdraw)) {
-            throw new WithdrawNotFoundException();
-        }
+        $withdraw = $request->get('withdraw');
 
-        $status = (int) $request->input('status');
-        $message = '操作失败';
-        $result = false;
-        if ($status === WithdrawStatus::WITHDRAW_SUCCESS) {
-            if ($result = $withdrawService->confirm($withdraw->id)) {
-                $message = '提币成功';
-            }
-        } else if ($status === WithdrawStatus::WITHDRAW_DENY) {
-            if ($result = $withdrawService->deny($withdraw->id))  {
-                $message = '审核成功';
-            }
-        }
+        $result = $withdrawService->confirm($withdraw);
 
         if ($result) {
-            return redirect()->back()->with('message', $message);
-        } else {
-            return redirect()->back()->withErrors($message);
+            return redirect()->back()->with('message', '提币成功');
         }
+        return redirect()->back()->withErrors('提币失败');
     }
 
-    public function auditConfirmModal($id)
+    public function deny(Request $request, WithdrawServiceInterface $withdrawService)
     {
-        $withdraw = Withdraw::with(['auditLogs'])->find($id);
-        if (empty($withdraw)) {
-            throw new WithdrawNotFoundException();
+        $withdraw = $request->get('withdraw');
+
+        $comment = $request->input('comment');
+        if (empty($comment)) {
+            throw new MissingMandatoryParametersException('Comment cannot be empty');
         }
 
+        $result = $withdrawService->deny($withdraw, $comment);
+
+        if ($result) {
+            return redirect()->back()->with('message', '操作成功');
+        }
+        return redirect()->back()->withErrors('操作失败');
+    }
+
+    public function auditConfirmModal(Request $request)
+    {
+        $withdraw = $request->get('withdraw');
+
         return view('withdraw.modals.audit-confirm', [
+            'withdraw' => $withdraw,
+        ]);
+    }
+
+    public function auditDenyModal(Request $request)
+    {
+        $withdraw = $request->get('withdraw');
+
+        return view('withdraw.modals.audit-deny', [
             'withdraw' => $withdraw,
         ]);
     }

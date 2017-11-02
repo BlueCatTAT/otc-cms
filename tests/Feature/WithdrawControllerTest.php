@@ -12,12 +12,28 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 class WithdrawControllerTest extends TestCase
 {
 
+    private $user;
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->user = User::find(1);
+    }
+
     public function testAudit()
     {
-        $user = User::find(1);
-        $response = $this->actingAs($user)
-            ->post(route('withdraw_audit', [1]), [
-                'status' => WithdrawStatus::WITHDRAW_SUCCESS,
+        $response = $this->actingAs($this->user)
+            ->post(route('withdraw_audit_confirm', [1]), [
+                'status' => WithdrawStatus::WITHDRAW_CONFIRM,
+            ]);
+        $response->isSuccessful();
+        $response->isRedirection();
+    }
+
+    public function testAuditDeny()
+    {
+        $response = $this->actingAs($this->user)
+            ->post(route('withdraw_audit_deny', [1]), [
+                'comment' => 'Denied',
             ]);
         $response->isSuccessful();
         $response->isRedirection();

@@ -88,7 +88,10 @@
                 <table class="table">
                     <thead>
                         <tr>
+                            <th width="25%">操作ID</th>
                             <th>操作人</th>
+                            <th>操作成功</th>
+                            <th>操作行为</th>
                             <th>状态</th>
                             <th>备注</th>
                             <th>操作时间</th>
@@ -97,7 +100,16 @@
                     <tbody>
                     @foreach($withdraw->auditLogs as $log)
                         <tr>
+                            <td>{{$log->request_id}}</td>
                             <td>{{$log->cms_uname}}</td>
+                            <td>
+                                @if ($log->is_successful == false)
+                                    <span class="label label-danger">{{$log->isSuccessfulText()}}</span>
+                                @else
+                                    {{$log->isSuccessfulText()}}
+                                @endif
+                            </td>
+                            <td>{{$log->getTargetStatusText()}}</td>
                             <td>{{$log->getPreviousStatusText()}}->{{$log->getPostStatusText()}}</td>
                             <td>{{$log->comment or '----'}}</td>
                             <td>{{$log->create_time}}</td>

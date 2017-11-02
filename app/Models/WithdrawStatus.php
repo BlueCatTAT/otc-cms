@@ -5,15 +5,17 @@ namespace OtcCms\Models;
 final class WithdrawStatus
 {
 
-    const WITHDRAW_PENDING = 10;
-    const WITHDRAW_DENY = 0;
-    const WITHDRAW_SUCCESS = 30;
-    const WITHDRAW_FAIL = 40;
+    const WITHDRAW_PENDING = 30;
+    const WITHDRAW_CONFIRM = 40;
+    const WITHDRAW_DENY = 50;
+    const WITHDRAW_SUCCESS = 60;
+    const WITHDRAW_FAIL = 70;
 
     protected static $statusList = [];
     private static $validStatus = [
-        self::WITHDRAW_DENY,
         self::WITHDRAW_PENDING,
+        self::WITHDRAW_CONFIRM,
+        self::WITHDRAW_DENY,
         self::WITHDRAW_SUCCESS,
         self::WITHDRAW_FAIL,
     ];
@@ -60,6 +62,8 @@ final class WithdrawStatus
         switch ($status) {
             case self::WITHDRAW_PENDING:
                 return '待审核';
+            case self::WITHDRAW_CONFIRM:
+                return '审核通过';
             case self::WITHDRAW_SUCCESS:
                 return '提现成功';
             case self::WITHDRAW_FAIL:

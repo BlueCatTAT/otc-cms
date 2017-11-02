@@ -27,6 +27,7 @@ class Withdraw extends Model
 
     public function auditLogs()
     {
-        return $this->hasMany(WithdrawAuditLog::class, 'withdraw_id');
+        return $this->hasMany(WithdrawAuditLog::class, 'withdraw_id')
+            ->orderBy('create_time', 'desc');
     }
 }

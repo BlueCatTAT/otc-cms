@@ -78,7 +78,7 @@ module.exports = __webpack_require__(44);
 
 $('.audit-confirm-btn').click(function () {
   var url = $(this).data('content-url');
-  $('#audit-pass-modal').load(url).modal();
+  $('#audit-modal').load(url).modal();
 });
 
 /***/ })

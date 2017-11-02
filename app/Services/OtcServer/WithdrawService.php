@@ -2,7 +2,10 @@
 
 namespace OtcCms\Services\OtcServer;
 
+use OtcCms\Models\Withdraw;
+use OtcCms\Models\WithdrawAuditLog;
 use OtcCms\Models\WithdrawStatus;
+use Auth;
 
 class WithdrawService implements WithdrawServiceInterface
 {
@@ -15,30 +18,55 @@ class WithdrawService implements WithdrawServiceInterface
     }
 
     /**
-     * @param int $withdrawId
+     * @param Withdraw $withdraw
      * @return bool
      */
-    public function confirm($withdrawId)
+    public function confirm(Withdraw $withdraw)
     {
         $response = $this->client->post('/admin/audit', [
-            'id' => $withdrawId,
-            'status' => WithdrawStatus::WITHDRAW_SUCCESS,
+            'id' => $withdraw->id,
+            'status' => WithdrawStatus::WITHDRAW_CONFIRM,
         ]);
 
-        return $response->isSuccessful();
+        $isSuccess = $response->isSuccessful();
+        $postWithdraw = Withdraw::find($withdraw->id);
+        $auditLog = WithdrawAuditLog::createInstance(
+            Auth::user(),
+            $postWithdraw,
+            $withdraw,
+            WithdrawStatus::WITHDRAW_CONFIRM,
+            $isSuccess,
+            $this->client->getLastRequestId());
+        $auditLog->save();
+
+        return $isSuccess;
     }
 
     /**
-     * @param int $withdrawId
+     * @param Withdraw $withdraw
+     * @param string $comment
      * @return bool
      */
-    public function deny($withdrawId)
+    public function deny(Withdraw $withdraw, $comment)
     {
         $response = $this->client->post('/admin/audit', [
-            'id' => $withdrawId,
+            'id' => $withdraw->id,
             'status' => WithdrawStatus::WITHDRAW_DENY,
         ]);
 
-        return $response->isSuccessful();
+        $isSuccess = $response->isSuccessful();
+        $postWithdraw = Withdraw::find($withdraw->id);
+        $auditLog = WithdrawAuditLog::createInstance(
+            Auth::user(),
+            $postWithdraw,
+            $withdraw,
+            WithdrawStatus::WITHDRAW_DENY,
+            $isSuccess,
+            $this->client->getLastRequestId(),
+            $comment
+        );
+        $auditLog->save();
+
+        return $isSuccess;
     }
 }
