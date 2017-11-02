@@ -2,7 +2,7 @@
 
 namespace OtcCms\Providers;
 
-use Barryvdh\Debugbar\ServiceProvider;
+use Illuminate\Support\ServiceProvider;
 use OtcCms\Services\Repositories\Customer\CustomerRepository;
 use OtcCms\Services\Repositories\Customer\CustomerRepositoryInterface;
 use OtcCms\Services\Repositories\Order\OrderRepository;
