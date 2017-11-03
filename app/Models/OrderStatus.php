@@ -2,7 +2,7 @@
 
 namespace OtcCms\Models;
 
-final class OrderStatus
+final class OrderStatus implements NumericCodeInterface
 {
     const CANCELED = 0;
     const WAITING_FOR_PAYMENT = 10;

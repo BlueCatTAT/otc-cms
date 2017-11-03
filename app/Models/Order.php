@@ -21,18 +21,20 @@ final class Order extends Model
 
     public function getTypeText()
     {
+        return $this->getTypeObj()->getText();
+    }
+
+    public function getTypeObj()
+    {
         if (null === $this->typeObj) {
             $this->typeObj = OrderType::valueOf($this->type);
         }
-        return $this->typeObj->getText();
+        return $this->typeObj;
     }
 
     public function getStatusText()
     {
-        if (null === $this->statusObj) {
-            $this->statusObj = OrderStatus::valueOf($this->status);
-        }
-        return $this->statusObj->getText();
+        return $this->getStatusObj()->getText();
     }
 
     /**
@@ -55,6 +57,11 @@ final class Order extends Model
         return $this->hasOne(Customer::class, 'id', 'ad_uid');
     }
 
+    public function auditLogs()
+    {
+        return $this->hasMany(OrderAuditLog::class, 'order_id', 'id');
+    }
+
     public function canBeCancelled()
     {
         return $this->status == OrderStatus::WAITING_FOR_PAYMENT
@@ -65,6 +72,17 @@ final class Order extends Model
     {
         return $this->status == OrderStatus::PAID
             || $this->status == OrderStatus::PAYMENT_RECEIVED;
+    }
+
+    /**
+     * @return OrderStatus
+     */
+    public function getStatusObj()
+    {
+        if (null === $this->statusObj) {
+            $this->statusObj = OrderStatus::valueOf($this->status);
+        }
+        return $this->statusObj;
     }
 
 }

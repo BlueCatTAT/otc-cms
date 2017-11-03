@@ -9,6 +9,8 @@
 namespace OtcCms\Services\Repositories\Order;
 
 use Illuminate\Database\Eloquent\Collection;
+use OtcCms\Models\Order;
+use OtcCms\Models\User;
 
 interface OrderRepositoryInterface
 {
@@ -21,4 +23,19 @@ interface OrderRepositoryInterface
      * @return Collection
      */
     public function paginateWithTypeAndCustomerName($type, $customerName);
+
+    /**
+     * @param Order $order
+     * @param User $user
+     * @return boolean
+     */
+    public function confirm(Order $order, User $user);
+
+    /**
+     * @param Order $order
+     * @param User $user
+     * @param $comment
+     * @return boolean
+     */
+    public function cancel(Order $order, User $user, $comment);
 }

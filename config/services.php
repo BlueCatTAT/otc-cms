@@ -1,5 +1,7 @@
 <?php
 
+use OtcCms\Services\OtcServer\OrderServiceTest;
+
 return [
 
     /*
@@ -37,5 +39,6 @@ return [
 
     'otc_server' => [
         'host' => env('OTC_SERVER_HOST', 'http://127.0.0.1'),
+        'OrderService' => env('OTC_SERVER_ORDER_SERVICE', OrderServiceTest::class),
     ],
 ];

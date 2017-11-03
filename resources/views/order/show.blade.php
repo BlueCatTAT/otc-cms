@@ -3,8 +3,7 @@
 @section('content')
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="@if (URL::previous()) {{ URL::previous() }}@else
-                {{ route('order_list') }}@endif">订单列表</a></li>
+            <li><a href="{{ route('order_list') }}">订单列表</a></li>
         </ol>
         <div class="panel panel-default">
             <div class="panel-heading">订单详情</div>
@@ -102,6 +101,41 @@
                     </div>
                 </form>
             </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">操作日志</div>
+            @if ($order->auditLogs)
+            <table class="table">
+                <thead>
+                <tr>
+                    <th width="25%">操作ID</th>
+                    <th>操作目标</th>
+                    <th>操作结果</th>
+                    <th>操作成功</th>
+                    <th>操作人员</th>
+                    <th>操作时间</th>
+                    <th>备注</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach ($order->auditLogs as $auditLog)
+                    <tr>
+                        <td>{{ $auditLog->request_id }}</td>
+                        <td>{{ $auditLog->getStatusLog()->getTargetStatusText() }}</td>
+                        <td>
+                            {{ $auditLog->getStatusLog()->getPreviousStatusText() }} -> {{ $auditLog->getStatusLog()->getPostStatusText() }}
+                        </td>
+                        <td>{{ $auditLog->is_successful ? '是' : '否' }}</td>
+                        <td>{{ $auditLog->cms_uname }}</td>
+                        <td>{{ $auditLog->create_time }}</td>
+                        <td>{{ $auditLog->comment }}</td>
+                    </tr>
+                @endforeach
+                </tbody>
+            </table>
+            @else
+                <div class="panel-body">没有操作日志</div>
+            @endif
         </div>
     </div>
     <div class="modal fade" tabindex="-1" role="dialog" id="cms-modal"></div>

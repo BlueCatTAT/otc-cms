@@ -3,9 +3,9 @@
 namespace OtcCms\Http\Controllers;
 
 use Illuminate\Http\Request;
-use OtcCms\Models\Order;
 use OtcCms\Models\OrderType;
 use OtcCms\Services\Repositories\Order\OrderRepositoryInterface;
+use Auth;
 
 class OrderController extends Controller
 {
@@ -50,13 +50,26 @@ class OrderController extends Controller
         ]);
     }
 
-    public function confirm(Request $request)
+    public function confirm(Request $request, OrderRepositoryInterface $orderRepository)
     {
-
+        $order = $request->attributes->get('order');
+        if ($orderRepository->confirm($order, Auth::user())) {
+            return redirect()->back()->with('message', '订单已确认');
+        }
+        return redirect()->back()->withErrors('操作失败');
     }
 
-    public function cancel(Request $request)
+    public function cancel(Request $request, OrderRepositoryInterface $orderRepository)
     {
+        $order = $request->attributes->get('order');
+        $comment = $request->input('comment');
+        if (empty($comment)) {
+            return redirect()->back()->withErrors('备注不能为空');
+        }
 
+        if ($orderRepository->cancel($order, Auth::user(), $comment)) {
+            return redirect()->back()->with('message', '订单已取消');
+        }
+        return redirect()->back()->withErrors('操作失败');
     }
 }
