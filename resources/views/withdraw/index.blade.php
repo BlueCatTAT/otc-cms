@@ -5,22 +5,7 @@
         <ol class="breadcrumb">
             <li class="active">提现申请</li>
         </ol>
-        @if ($errors->any())
-            <div class="alert alert-danger" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times</span>
-                </button>
-                {{ $errors->first() }}
-            </div>
-        @endif
-        @if ($message = session('message'))
-            <div class="alert alert-success" role="alert">
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times</span>
-                </button>
-                {{ $message }}
-            </div>
-        @endif
+        @include('mixins.post-message')
         <div class="row">
             <div class="col-md-12">
             <div class="panel panel-default">

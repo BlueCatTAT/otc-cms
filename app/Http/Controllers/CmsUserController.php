@@ -56,7 +56,7 @@ class CmsUserController extends Controller
 
         $password = $request->input('password');
         if (empty($password)) {
-            return redirect()->back()->with('updateSuccess', true);
+            return redirect()->back()->with('message', '更新成功');
         }
 
         $this->validate($request, [
@@ -74,6 +74,6 @@ class CmsUserController extends Controller
             ]);
             return redirect()->back()->withErrors($e->getMessage());
         }
-        return redirect()->back()->with('updateSuccess', true);
+        return redirect()->back()->with('message', '更新成功');
     }
 }

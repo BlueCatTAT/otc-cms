@@ -5,6 +5,7 @@
         <ol class="breadcrumb">
             <li><a href="{{ route('order_list') }}">订单列表</a></li>
         </ol>
+        @include('mixins.post-message')
         <div class="panel panel-default">
             <div class="panel-heading">订单详情</div>
             <div class="panel-body">

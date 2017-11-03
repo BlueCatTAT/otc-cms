@@ -10,13 +10,7 @@
             {{ csrf_field() }}
             <div class="form-group">
                 <div class="col-sm-12">
-                @if ($errors->any())
-                    <div class="alert alert-danger">{{ $errors->first() }}</div>
-                @endif
-                @if (session('updateSuccess'))
-                    <div class="alert alert-success">更新成功</div>
-                @endif
-                </div>
+                @include('mixins.post-message')
             </div>
 
             <div class="form-group">
