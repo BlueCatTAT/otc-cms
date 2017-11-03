@@ -31,4 +31,32 @@ class OrderController extends Controller
             'order' => $order,
         ]);
     }
+
+    public function confirmModal(Request $request)
+    {
+        $order = $request->attributes->get('order');
+
+        return view('order.modals.confirm', [
+            'order' => $order,
+        ]);
+    }
+
+    public function cancelModal(Request $request)
+    {
+        $order = $request->attributes->get('order');
+
+        return view('order.modals.deny', [
+            'order' => $order,
+        ]);
+    }
+
+    public function confirm(Request $request)
+    {
+
+    }
+
+    public function cancel(Request $request)
+    {
+
+    }
 }

@@ -55,4 +55,16 @@ final class Order extends Model
         return $this->hasOne(Customer::class, 'id', 'ad_uid');
     }
 
+    public function canBeCancelled()
+    {
+        return $this->status == OrderStatus::WAITING_FOR_PAYMENT
+            || $this->status == OrderStatus::PAID;
+    }
+
+    public function canBeConfirmed()
+    {
+        return $this->status == OrderStatus::PAID
+            || $this->status == OrderStatus::PAYMENT_RECEIVED;
+    }
+
 }

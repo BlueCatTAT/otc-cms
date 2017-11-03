@@ -27,6 +27,11 @@ final class OrderStatus
         $this->code = $code;
     }
 
+    /**
+     * @param int $code
+     * @throws \InvalidArgumentException
+     * @return self
+     */
     public static function valueOf($code)
     {
         if (empty(self::$statusList[$code])) {

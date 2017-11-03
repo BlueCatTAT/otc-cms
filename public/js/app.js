@@ -990,7 +990,12 @@ window.Vue = __webpack_require__(35);
 Vue.component('example', __webpack_require__(38));
 
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  methods: {
+    popupModalFromUrl: function popupModalFromUrl(url) {
+      $('#cms-modal').load(url).modal();
+    }
+  }
 });
 
 /***/ }),

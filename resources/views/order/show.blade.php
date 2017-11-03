@@ -34,7 +34,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">成交单价</label>
+                        <label class="control-label col-sm-2">成交单价(CNY)</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">{{ $order->price }}</p>
                         </div>
@@ -46,7 +46,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">比特币数量</label>
+                        <label class="control-label col-sm-2">数字货币(BTC)</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">{{ $order->quantity }}</p>
                         </div>
@@ -87,8 +87,21 @@
                             <p class="form-control-static">{{ $order->finish_time }}</p>
                         </div>
                     </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            @if ($order->canBeConfirmed())
+                            <button type="button" class="btn btn-default"
+                            v-on:click="popupModalFromUrl('{{ route('order_confirm_modal', [$order->id]) }}')">完成订单</button>
+                            @endif
+                            @if ($order->canBeCancelled())
+                            <button type="button" class="btn btn-danger"
+                            v-on:click="popupModalFromUrl('{{ route('order_cancel_modal', [$order->id]) }}')">取消订单</button>
+                            @endif
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+    <div class="modal fade" tabindex="-1" role="dialog" id="cms-modal"></div>
 @endsection

@@ -41,4 +41,15 @@ Route::prefix('cms-user')->middleware(['role:admin'])->group(function() {
 Route::prefix('order')->group(function() {
     Route::get('/', 'OrderController@index')->name('order_list');
     Route::get('/{id}', 'OrderController@show')->name('order_detail')->middleware('order.id');
+    Route::get('/{id}/confirm-modal', 'OrderController@confirmModal')
+        ->name('order_confirm_modal')
+        ->middleware('order.id');
+    Route::get('/{id}/cancel-modal', 'OrderController@cancelModal')
+        ->name('order_cancel_modal')
+        ->middleware('order.id');
+
+    Route::post('/{id}/confirm', 'OrderController@confirm')
+        ->name('order_confirm')->middleware('order.id');
+    Route::post('/{id}/cancel', 'OrderController@cancel')
+        ->name('order_cancel')->middleware('order.id');
 });
