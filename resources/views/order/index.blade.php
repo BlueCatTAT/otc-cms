@@ -3,7 +3,7 @@
 @section('content')
     <div class="container">
         <ol class="breadcrumb">
-            <li class="active">订单管理</li>
+            <li class="active">订单列表</li>
         </ol>
         <ul class="nav nav-tabs">
             @foreach($orderTypeList as $orderType)

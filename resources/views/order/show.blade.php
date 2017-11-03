@@ -3,7 +3,8 @@
 @section('content')
     <div class="container">
         <ol class="breadcrumb">
-            <li><a href="{{ route('order_list') }}">订单列表</a></li>
+            <li><a href="@if (URL::previous()) {{ URL::previous() }}@else
+                {{ route('order_list') }}@endif">订单列表</a></li>
         </ol>
         <div class="panel panel-default">
             <div class="panel-heading">订单详情</div>
