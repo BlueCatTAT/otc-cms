@@ -22,7 +22,8 @@ class ApiClient
     public function __construct(Log $log)
     {
         $this->client = new Client([
-            'base_uri' => config('services.otc_server.host')
+            'base_uri' => config('services.otc_server.host'),
+            'timeout' => config('services.otc_server.timeout'),
         ]);
         $this->log = $log;
     }

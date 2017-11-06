@@ -19,7 +19,7 @@ class WithdrawService implements WithdrawServiceInterface
 
     /**
      * @param Withdraw $withdraw
-     * @return bool
+     * @return Result
      */
     public function confirm(Withdraw $withdraw)
     {
@@ -28,24 +28,13 @@ class WithdrawService implements WithdrawServiceInterface
             'status' => WithdrawStatus::WITHDRAW_CONFIRM,
         ]);
 
-        $isSuccess = $response->isSuccessful();
-        $postWithdraw = Withdraw::find($withdraw->id);
-        $auditLog = WithdrawAuditLog::createInstance(
-            Auth::user(),
-            $postWithdraw,
-            $withdraw,
-            WithdrawStatus::WITHDRAW_CONFIRM,
-            $isSuccess,
-            $this->client->getLastRequestId());
-        $auditLog->save();
-
-        return $isSuccess;
+        return Result::create($this->client->getLastRequestId(), $response);
     }
 
     /**
      * @param Withdraw $withdraw
      * @param string $comment
-     * @return bool
+     * @return Result
      */
     public function deny(Withdraw $withdraw, $comment)
     {
@@ -54,19 +43,6 @@ class WithdrawService implements WithdrawServiceInterface
             'status' => WithdrawStatus::WITHDRAW_DENY,
         ]);
 
-        $isSuccess = $response->isSuccessful();
-        $postWithdraw = Withdraw::find($withdraw->id);
-        $auditLog = WithdrawAuditLog::createInstance(
-            Auth::user(),
-            $postWithdraw,
-            $withdraw,
-            WithdrawStatus::WITHDRAW_DENY,
-            $isSuccess,
-            $this->client->getLastRequestId(),
-            $comment
-        );
-        $auditLog->save();
-
-        return $isSuccess;
+        return Result::create($this->client->getLastRequestId(), $response);
     }
 }

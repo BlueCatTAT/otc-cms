@@ -54,8 +54,18 @@ class WithdrawController extends Controller
         $withdraw = $request->get('withdraw');
 
         $result = $withdrawService->confirm($withdraw);
+        $isSuccess = $result->getResponse()->isSuccessful();
+        $postWithdraw = Withdraw::find($withdraw->id);
+        $auditLog = WithdrawAuditLog::createInstance(
+            Auth::user(),
+            $postWithdraw,
+            $withdraw,
+            WithdrawStatus::WITHDRAW_CONFIRM,
+            $isSuccess,
+            $result->getRequestId());
+        $auditLog->save();
 
-        if ($result) {
+        if ($isSuccess) {
             return redirect()->back()->with('message', '提币成功');
         }
         return redirect()->back()->withErrors('提币失败');
@@ -71,8 +81,20 @@ class WithdrawController extends Controller
         }
 
         $result = $withdrawService->deny($withdraw, $comment);
+        $isSuccess = $result->getResponse()->isSuccessful();
+        $postWithdraw = Withdraw::find($withdraw->id);
+        $auditLog = WithdrawAuditLog::createInstance(
+            Auth::user(),
+            $postWithdraw,
+            $withdraw,
+            WithdrawStatus::WITHDRAW_DENY,
+            $isSuccess,
+            $result->getRequestId(),
+            $comment
+        );
+        $auditLog->save();
 
-        if ($result) {
+        if ($isSuccess) {
             return redirect()->back()->with('message', '操作成功');
         }
         return redirect()->back()->withErrors('操作失败');

@@ -20,6 +20,11 @@ final class Result
         $this->response = $response;
     }
 
+    public static function create($requestId, ApiResponse $response)
+    {
+        return new self($requestId, $response);
+    }
+
     /**
      * @return ApiResponse
      */

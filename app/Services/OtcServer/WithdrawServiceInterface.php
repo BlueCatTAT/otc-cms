@@ -14,14 +14,14 @@ interface WithdrawServiceInterface
 {
     /**
      * @param Withdraw $withdraw
-     * @return bool
+     * @return Result
      */
     public function confirm(Withdraw $withdraw);
 
     /**
      * @param Withdraw $withdraw
      * @param string $comment
-     * @return bool
+     * @return Result
      */
     public function deny(Withdraw $withdraw, $comment);
 }
