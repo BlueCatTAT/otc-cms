@@ -35,7 +35,8 @@ class WithdrawRepository implements WithdrawRepositoryInterface
     {
         $result = $this->withdrawService->confirm($withdraw);
         $isSuccess = $result->getResponse()->isSuccessful();
-        $postWithdraw = Withdraw::find($withdraw->id);
+        $query = new Withdraw();
+        $postWithdraw = $query->find($withdraw->id);
         $auditLog = WithdrawAuditLog::createInstance(
             Auth::user(),
             $postWithdraw,
