@@ -2,6 +2,7 @@
 
 namespace OtcCms\Services\Repositories\Customer;
 
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use OtcCms\Models\Customer;
 
@@ -15,7 +16,29 @@ class CustomerRepository implements CustomerRepositoryInterface
      */
     public function searchByName($customerName, $columns = ['*'])
     {
-        return Customer::where('name', 'like', "%$customerName%")
+        return Customer::where('nickname', 'like', "%$customerName%")
             ->get();
+    }
+
+    /**
+     * @param int $limit
+     * @return Paginator
+     */
+    public function paginate($limit)
+    {
+        return Customer::paginate($limit);
+    }
+
+    /**
+     * @param string $query
+     * @return Collection
+     */
+    public function searchByNameOrId($query)
+    {
+        if (is_numeric($query)) {
+            return collect([Customer::find((int) $query)]);
+        }
+
+        return $this->searchByName($query);
     }
 }
