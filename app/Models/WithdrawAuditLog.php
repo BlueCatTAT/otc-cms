@@ -41,16 +41,16 @@ class WithdrawAuditLog extends Model
 
 
     public static function createInstance(
-        User $user, Withdraw $withdraw, Withdraw $previousWithdraw, $targetStatus,
+        User $user, Withdraw $withdraw, StatusLog $statusLog,
         $isSuccess, $requestId, $comment = '')
     {
         $instance = new self();
         $instance->withdraw_id = $withdraw->id;
         $instance->cms_uid = $user->id;
         $instance->cms_uname = $user->name;
-        $instance->previous_status = $previousWithdraw->status;
-        $instance->post_status = $withdraw->status;
-        $instance->target_status = $targetStatus;
+        $instance->previous_status = $statusLog->getPreviousStatusCode();
+        $instance->post_status = $statusLog->getPostStatusCode();
+        $instance->target_status = $statusLog->getTargetStatusCode();
         $instance->comment = $comment;
         $instance->is_successful = (int) $isSuccess;
         $instance->request_id = $requestId;

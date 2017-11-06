@@ -50,7 +50,7 @@ class WithdrawController extends Controller
         ]);
     }
 
-    public function confirm(Request $request, WithdrawServiceInterface $withdrawService)
+    public function confirm(Request $request, WithdrawRepositoryInterface $withdrawService)
     {
         $withdraw = $request->get('withdraw');
 

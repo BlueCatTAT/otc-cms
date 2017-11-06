@@ -65,15 +65,20 @@ class Withdraw extends Model
 
     public function getStatusText()
     {
-        if (null === $this->statusObj) {
-            $this->statusObj = WithdrawStatus::valueOf($this->status);
-        }
-        return $this->statusObj->getStatusText();
+        return $this->getStatusObj()->getStatusText();
     }
 
     public function auditLogs()
     {
         return $this->hasMany(WithdrawAuditLog::class, 'withdraw_id')
             ->orderBy('create_time', 'desc');
+    }
+
+    public function getStatusObj()
+    {
+        if (null === $this->statusObj) {
+            $this->statusObj = WithdrawStatus::valueOf($this->status);
+        }
+        return $this->statusObj;
     }
 }

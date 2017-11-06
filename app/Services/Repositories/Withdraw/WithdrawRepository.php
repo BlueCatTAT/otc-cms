@@ -8,6 +8,7 @@
 
 namespace OtcCms\Services\Repositories\Withdraw;
 
+use OtcCms\Models\StatusLog;
 use OtcCms\Models\Withdraw;
 use OtcCms\Models\WithdrawAuditLog;
 use OtcCms\Models\WithdrawStatus;
@@ -22,9 +23,12 @@ class WithdrawRepository implements WithdrawRepositoryInterface
      */
     private $withdrawService;
 
+    private $query;
+
     public function __construct(WithdrawServiceInterface $withdrawService)
     {
         $this->withdrawService = $withdrawService;
+        $this->query = new Withdraw();
     }
 
     /**
@@ -35,13 +39,15 @@ class WithdrawRepository implements WithdrawRepositoryInterface
     {
         $result = $this->withdrawService->confirm($withdraw);
         $isSuccess = $result->getResponse()->isSuccessful();
-        $query = new Withdraw();
-        $postWithdraw = $query->find($withdraw->id);
+        $postWithdraw = $this->query->find($withdraw->id);
         $auditLog = WithdrawAuditLog::createInstance(
             Auth::user(),
             $postWithdraw,
-            $withdraw,
-            WithdrawStatus::WITHDRAW_CONFIRM,
+            StatusLog::createInstance(
+                WithdrawStatus::valueOf(WithdrawStatus::WITHDRAW_CONFIRM),
+                $withdraw->getStatusObj(),
+                $postWithdraw->getStatusObj()
+            ),
             $isSuccess,
             $result->getRequestId());
         $auditLog->save();
@@ -57,12 +63,15 @@ class WithdrawRepository implements WithdrawRepositoryInterface
     {
         $result = $this->withdrawService->deny($withdraw, $comment);
         $isSuccess = $result->getResponse()->isSuccessful();
-        $postWithdraw = Withdraw::find($withdraw->id);
+        $postWithdraw = $this->query->find($withdraw->id);
         $auditLog = WithdrawAuditLog::createInstance(
             Auth::user(),
-            $postWithdraw,
             $withdraw,
-            WithdrawStatus::WITHDRAW_DENY,
+            StatusLog::createInstance(
+                WithdrawStatus::valueOf(WithdrawStatus::WITHDRAW_DENY),
+                $withdraw->getStatusObj(),
+                $postWithdraw->getStatusObj()
+            ),
             $isSuccess,
             $result->getRequestId(),
             $comment
