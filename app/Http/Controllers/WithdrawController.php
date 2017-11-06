@@ -7,6 +7,7 @@ use OtcCms\Models\Withdraw;
 use OtcCms\Models\WithdrawAuditLog;
 use OtcCms\Models\WithdrawStatus;
 use OtcCms\Services\OtcServer\WithdrawServiceInterface;
+use OtcCms\Services\Repositories\Withdraw\WithdrawRepositoryInterface;
 use Symfony\Component\Routing\Exception\MissingMandatoryParametersException;
 use Auth;
 
@@ -49,19 +50,18 @@ class WithdrawController extends Controller
         ]);
     }
 
-    public function confirm(Request $request, WithdrawServiceInterface $withdrawService)
+    public function confirm(Request $request, WithdrawRepositoryInterface $withdrawService)
     {
         $withdraw = $request->get('withdraw');
 
-        $result = $withdrawService->confirm($withdraw);
 
-        if ($result) {
+        if ($withdrawService->confirm($withdraw)) {
             return redirect()->back()->with('message', '提币成功');
         }
         return redirect()->back()->withErrors('提币失败');
     }
 
-    public function deny(Request $request, WithdrawServiceInterface $withdrawService)
+    public function deny(Request $request, WithdrawRepositoryInterface $withdrawRepository)
     {
         $withdraw = $request->get('withdraw');
 
@@ -70,9 +70,8 @@ class WithdrawController extends Controller
             throw new MissingMandatoryParametersException('Comment cannot be empty');
         }
 
-        $result = $withdrawService->deny($withdraw, $comment);
 
-        if ($result) {
+        if ($withdrawRepository->deny($withdraw, $comment)) {
             return redirect()->back()->with('message', '操作成功');
         }
         return redirect()->back()->withErrors('操作失败');

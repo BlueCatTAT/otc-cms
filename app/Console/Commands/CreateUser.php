@@ -55,6 +55,7 @@ class CreateUser extends Command
             $data['password'] = bcrypt($data['password']);
             $user->fill($data);
             $user->save();
+            $this->info($user->id);
         } catch (\Exception $e) {
             $this->error($e->getMessage());
         }

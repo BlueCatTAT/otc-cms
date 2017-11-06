@@ -4,6 +4,35 @@ namespace OtcCms\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * OtcCms\Models\WithdrawAuditLog
+ *
+ * @property int $id
+ * @property int $withdraw_id
+ * @property int $cms_uid
+ * @property string $cms_uname
+ * @property int $previous_status
+ * @property int $post_status
+ * @property \Carbon\Carbon $create_time
+ * @property \Carbon\Carbon $update_time
+ * @property string $comment
+ * @property int $is_successful 操作是否执行成功
+ * @property string $request_id 向otc_server发送请求的ID，用于到日志中查错
+ * @property int $target_status 操作时想要到达的状态
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\WithdrawAuditLog whereCmsUid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\WithdrawAuditLog whereCmsUname($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\WithdrawAuditLog whereComment($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\WithdrawAuditLog whereCreateTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\WithdrawAuditLog whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\WithdrawAuditLog whereIsSuccessful($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\WithdrawAuditLog wherePostStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\WithdrawAuditLog wherePreviousStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\WithdrawAuditLog whereRequestId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\WithdrawAuditLog whereTargetStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\WithdrawAuditLog whereUpdateTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\WithdrawAuditLog whereWithdrawId($value)
+ * @mixin \Eloquent
+ */
 class WithdrawAuditLog extends Model
 {
     const CREATED_AT = 'create_time';
@@ -12,16 +41,16 @@ class WithdrawAuditLog extends Model
 
 
     public static function createInstance(
-        User $user, Withdraw $withdraw, Withdraw $previousWithdraw, $targetStatus,
+        User $user, Withdraw $withdraw, StatusLog $statusLog,
         $isSuccess, $requestId, $comment = '')
     {
         $instance = new self();
         $instance->withdraw_id = $withdraw->id;
         $instance->cms_uid = $user->id;
         $instance->cms_uname = $user->name;
-        $instance->previous_status = $previousWithdraw->status;
-        $instance->post_status = $withdraw->status;
-        $instance->target_status = $targetStatus;
+        $instance->previous_status = $statusLog->getPreviousStatusCode();
+        $instance->post_status = $statusLog->getPostStatusCode();
+        $instance->target_status = $statusLog->getTargetStatusCode();
         $instance->comment = $comment;
         $instance->is_successful = (int) $isSuccess;
         $instance->request_id = $requestId;

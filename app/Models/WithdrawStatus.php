@@ -2,7 +2,7 @@
 
 namespace OtcCms\Models;
 
-final class WithdrawStatus
+final class WithdrawStatus implements NumericCodeInterface
 {
 
     const WITHDRAW_PENDING = 30;
@@ -86,5 +86,21 @@ final class WithdrawStatus
     public function getStatusCode()
     {
         return $this->statusCode;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCode()
+    {
+        return $this->getStatusCode();
+    }
+
+    /**
+     * @return string
+     */
+    public function getText()
+    {
+        return $this->getStatusText();
     }
 }

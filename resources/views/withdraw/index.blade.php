@@ -78,14 +78,12 @@
                             </td>
                             <td>
                                 @if ($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_PENDING)
-                                    <span class="glyphicon glyphicon-ok audit-confirm-btn text-success"
-                                    data-content-url="{{ route('withdraw_audit_confirm_modal', [$withdraw->id]) }}"></span>
-                                    <span class="glyphicon glyphicon-remove audit-confirm-btn text-danger"
-                                    data-content-url="{{ route('withdraw_audit_deny_modal', [$withdraw->id]) }}"></span>
+                                    <span class="glyphicon glyphicon-ok text-success"
+                                          v-on:click="popupModalFromUrl('{{ route('withdraw_audit_confirm_modal', [$withdraw->id]) }}')"></span>
+                                    <span class="glyphicon glyphicon-remove text-danger"
+                                          v-on:click="popupModalFromUrl('{{ route('withdraw_audit_deny_modal', [$withdraw->id]) }}')"></span>
                                 @elseif ($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_FAIL)
-                                    <span class="glyphicon glyphicon-repeat audit-confirm-btn"
-                                    data-content-url="{{ route('withdraw_audit_confirm_modal', [$withdraw->id]) }}"></span>
-                                    ></span>
+                                    <span class="glyphicon glyphicon-repeat" v-on:click="popupModalFromUrl('{{ route('withdraw_audit_confirm_modal', [$withdraw->id]) }}')"></span>
                                 @endif
                                 <a href="{{route('withdraw_detail', [$withdraw->id])}}" class="glyphicon glyphicon-eye-open"></a>
                             </td>
@@ -100,9 +98,5 @@
     </div>
 
     {{-- Modal --}}
-    <div class="modal fade" id="audit-modal" tabindex="-1" role="dialog"></div>
-@endsection
-
-@section('scripts')
-    <script src="{{ asset('js/withdraw/index.js') }}"></script>
+    <div class="modal fade" id="cms-modal" tabindex="-1" role="dialog"></div>
 @endsection
