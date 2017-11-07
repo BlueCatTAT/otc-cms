@@ -62,7 +62,7 @@ class ApiClient
             return ApiResponse::exception($body);
         }
         $result = @json_decode($body, true);
-        if (empty($result) || empty($result['code'])) {
+        if (empty($result) || !isset($result['code'])) {
             return ApiResponse::exception($body);
         }
 
