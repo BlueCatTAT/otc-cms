@@ -3,6 +3,7 @@
 namespace OtcCms\Services\Repositories\Order;
 
 use DB;
+use Illuminate\Contracts\Pagination\Paginator;
 use OtcCms\Models\Order;
 use OtcCms\Models\OrderStatus;
 use OtcCms\Models\StatusLog;
@@ -37,10 +38,7 @@ class OrderRepository implements OrderRepositoryInterface
      */
     public function paginateWithTypeAndCustomerName($type, $customerName)
     {
-        $query = DB::table('order')
-            ->join('user as owner', 'order.uid', '=', 'owner.id')
-            ->join('user as publisher', 'order.ad_uid', '=', 'publisher.id')
-            ->select('order.*', 'owner.nickname as uname', 'publisher.nickname as ad_uname')
+        $query = $this->getJoinQuery()
             ->where('order.type', $type)
             ->orderBy('order.create_time', 'desc');
         if (!empty($customerName)) {
@@ -49,7 +47,7 @@ class OrderRepository implements OrderRepositoryInterface
                     ->orWhere('publisher.nickname', 'like', "%$customerName%");
             });
         }
-        return $query->paginate(30);
+        return $query->paginate(config('view.paginator.limit'));
     }
 
     /**
@@ -91,5 +89,28 @@ class OrderRepository implements OrderRepositoryInterface
         );
         $this->auditLogRepository->create($user, $order->id, $statusLog, $result->getRequestId(), $response->isSuccessful(), $comment);
         return $response->isSuccessful();
+    }
+
+    /**
+     * @param int $customerId
+     * @return Paginator
+     */
+    public function paginateWithCustomerId($customerId)
+    {
+        return $this->getJoinQuery()
+            ->where(function($query) use ($customerId) {
+                $query->where('owner.id', $customerId)
+                    ->orWhere('publisher.id', $customerId);
+            })
+            ->orderBy('order.create_time', 'desc')
+            ->paginate(config('view.paginator.limit'));
+    }
+
+    private function getJoinQuery()
+    {
+        return DB::table('order')
+            ->join('user as owner', 'order.uid', '=', 'owner.id')
+            ->join('user as publisher', 'order.ad_uid', '=', 'publisher.id')
+            ->select('order.*', 'owner.nickname as uname', 'publisher.nickname as ad_uname');
     }
 }

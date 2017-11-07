@@ -73,4 +73,13 @@ Route::prefix('customer')->group(function() {
     Route::get('/{id}', 'CustomerCOntroller@show')
         ->name('customer_detail')
         ->middleware('customer.id');
+    Route::get('/{id}/orders', 'CustomerController@orderList')
+        ->name('customer_order_list')
+        ->middleware('customer.id');
+    Route::get('/{id}/ads', 'CustomerController@adList')
+        ->name('customer_ad_list')
+        ->middleware('customer.id');
+    Route::get('/{id}/withdraws', 'CustomerController@withdrawList')
+        ->name('customer_withdraw_list')
+        ->middleware('customer.id');
 });

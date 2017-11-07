@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <ol class="breadcrumb">
-        <li class="active">帐号总监</li>
+        <li class="active">帐号总览</li>
     </ol>
 
     <div class="panel panel-default">
@@ -42,7 +42,9 @@
                     <td>{{ $customer->nickname }}</td>
                     <td>{{ $customer->mobile }}</td>
                     <td>{{ $customer->create_time }}</td>
-                    <td></td>
+                    <td>
+                       <a class="glyphicon glyphicon-eye-open" href="{{ route('customer_detail', [ $customer->id ]) }}"></a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

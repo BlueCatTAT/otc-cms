@@ -8,6 +8,7 @@
 
 namespace OtcCms\Services\Repositories\Order;
 
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
 use OtcCms\Models\Order;
 use OtcCms\Models\User;
@@ -20,9 +21,15 @@ interface OrderRepositoryInterface
      *
      * @param int $type
      * @param string $customerName
-     * @return Collection
+     * @return Paginator
      */
     public function paginateWithTypeAndCustomerName($type, $customerName);
+
+    /**
+     * @param int $customerId
+     * @return Paginator
+     */
+    public function paginateWithCustomerId($customerId);
 
     /**
      * @param Order $order

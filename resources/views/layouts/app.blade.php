@@ -37,9 +37,10 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         <li><a href="{{ route('withdraw_list') }}">提币请求</a></li>
-                        <li><a href="{{route("order_list")}}">订单管理</a></li>
+                        <li><a href="{{ route("order_list") }}">订单管理</a></li>
+                        <li><a href="{{ route("customer_list") }}">客户管理</a></li>
                         @role('admin')
-                        <li><a href="{{route("cms_user_list")}}">管理员列表</a></li>
+                        <li><a href="{{ route("cms_user_list") }}">管理员列表</a></li>
                         @endrole
                     </ul>
 

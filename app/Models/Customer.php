@@ -46,4 +46,9 @@ class Customer extends Model
     const CREATED_AT = 'create_time';
     const UPDATED_AT = 'update_time';
     protected $table = 'user';
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class, 'uid', 'id');
+    }
 }
