@@ -70,7 +70,7 @@ Route::prefix('order')->group(function() {
 Route::prefix('customer')->group(function() {
     Route::get('/', 'CustomerController@index')
         ->name('customer_list');
-    Route::get('/{id}', 'CustomerCOntroller@show')
+    Route::get('/{id}', 'CustomerController@show')
         ->name('customer_detail')
         ->middleware('customer.id');
     Route::get('/{id}/orders', 'CustomerController@orderList')
