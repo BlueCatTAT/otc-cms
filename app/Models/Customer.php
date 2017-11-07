@@ -25,6 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon $create_time
  * @property mixed $advertisements
  * @property mixed $wallet
+ * @property mixed $withdraws
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Customer whereAvatar($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Customer whereCreateTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Customer whereEmail($value)
@@ -57,5 +58,10 @@ class Customer extends Model
     public function advertisements()
     {
         return $this->hasMany(Advertisement::class, 'uid', 'id');
+    }
+
+    public function withdraws()
+    {
+        return $this->hasMany(Withdraw::class, 'uid', 'id');
     }
 }

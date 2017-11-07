@@ -5,6 +5,8 @@ namespace OtcCms\Models;
 final class WithdrawStatus implements NumericCodeInterface
 {
 
+    const WITHDRAW_CREATED = 10;
+    const WITHDRAW_COMMITTED = 20;
     const WITHDRAW_PENDING = 30;
     const WITHDRAW_CONFIRM = 40;
     const WITHDRAW_DENY = 50;
@@ -13,6 +15,8 @@ final class WithdrawStatus implements NumericCodeInterface
 
     protected static $statusList = [];
     private static $validStatus = [
+        self::WITHDRAW_CREATED,
+        self::WITHDRAW_COMMITTED,
         self::WITHDRAW_PENDING,
         self::WITHDRAW_CONFIRM,
         self::WITHDRAW_DENY,
@@ -60,6 +64,10 @@ final class WithdrawStatus implements NumericCodeInterface
     private static function sGetStatusText($status)
     {
         switch ($status) {
+            case self::WITHDRAW_CREATED:
+                return '新建';
+            case self::WITHDRAW_COMMITTED:
+                return '用户已确认';
             case self::WITHDRAW_PENDING:
                 return '待审核';
             case self::WITHDRAW_CONFIRM:
