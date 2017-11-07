@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Carbon\Carbon|null $update_time
  * @property string|null $update_time_pwd Update time of password
  * @property \Carbon\Carbon $create_time
+ * @property mixed $advertisements
+ * @property mixed $wallet
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Customer whereAvatar($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Customer whereCreateTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Customer whereEmail($value)
@@ -50,5 +52,10 @@ class Customer extends Model
     public function wallet()
     {
         return $this->hasOne(Wallet::class, 'uid', 'id');
+    }
+
+    public function advertisements()
+    {
+        return $this->hasMany(Advertisement::class, 'uid', 'id');
     }
 }

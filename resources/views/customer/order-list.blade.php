@@ -14,10 +14,12 @@
             <li role="presentation"><a href="{{ route('customer_withdraw_list', [ $customer->id ]) }}">提币申请列表</a></li>
         </ul>
 
-        <div class="panel panel-default">
-            <div class="panel-heading">订单列表</div>
-            <div class="panel-body"></div>
-            @include('mixins.order-list')
+        <div class="well">
+            @if ($orderList->count())
+                @include('mixins.order-list')
+            @else
+                <p>没有订单记录</p>
+            @endif
         </div>
     </div>
 @endsection
