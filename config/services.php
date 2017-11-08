@@ -1,6 +1,6 @@
 <?php
 
-use OtcCms\Services\OtcServer\OrderServiceTest;
+use OtcCms\Services\OtcServer\OrderService;
 
 return [
 
@@ -40,6 +40,6 @@ return [
     'otc_server' => [
         'host' => env('OTC_SERVER_HOST', 'http://127.0.0.1'),
         'timeout' => env('OTC_SERVER_TIMEOUT', 60),
-        'OrderService' => env('OTC_SERVER_ORDER_SERVICE', OrderServiceTest::class),
+        'OrderService' => env('OTC_SERVER_ORDER_SERVICE', OrderService::class),
     ],
 ];
