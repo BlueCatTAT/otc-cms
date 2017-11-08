@@ -39,7 +39,8 @@
                 </span>
             </td>
             <td>
-                @if ($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_PENDING)
+                @if ($withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_PENDING
+                or $withdraw->status == \OtcCms\Models\WithdrawStatus::WITHDRAW_CONFIRM)
                     <span class="glyphicon glyphicon-ok text-success"
                           v-on:click="popupModalFromUrl('{{ route('withdraw_audit_confirm_modal', [$withdraw->id]) }}')"></span>
                     <span class="glyphicon glyphicon-remove text-danger"

@@ -23,10 +23,18 @@ class WithdrawService implements WithdrawServiceInterface
      */
     public function confirm(Withdraw $withdraw)
     {
-        $response = $this->client->post('/admin/audit', [
-            'id' => $withdraw->id,
-            'status' => WithdrawStatus::WITHDRAW_CONFIRM,
-        ]);
+        if ($withdraw->status == WithdrawStatus::WITHDRAW_PENDING) {
+            $response = $this->client->post('/admin/audit', [
+                'id' => $withdraw->id,
+                'status' => WithdrawStatus::WITHDRAW_CONFIRM,
+            ]);
+        } else if ($withdraw->status == WithdrawStatus::WITHDRAW_CONFIRM) {
+            $response = $this->client->post('/admin/withdraw', [
+                'id' => $withdraw->id,
+            ]);
+        } else {
+            $response = ApiResponse::exception("Can't confirm withdraw of status {$withdraw->status}");
+        }
 
         return Result::create($this->client->getLastRequestId(), $response);
     }

@@ -24,12 +24,16 @@ class WithdrawController extends Controller
         $statusListKey = 'statusList';
         $statusList = [
             WithdrawStatus::valueOf(WithdrawStatus::WITHDRAW_PENDING),
+            WithdrawStatus::valueOf(WithdrawStatus::WITHDRAW_CONFIRM),
             WithdrawStatus::valueOf(WithdrawStatus::WITHDRAW_SUCCESS),
             WithdrawStatus::valueOf(WithdrawStatus::WITHDRAW_FAIL),
             WithdrawStatus::valueOf(WithdrawStatus::WITHDRAW_DENY),
         ];
         if (empty($request->get($statusListKey))) {
-            $request->request->set($statusListKey, [WithdrawStatus::WITHDRAW_PENDING]);
+            $request->request->set($statusListKey, [
+                WithdrawStatus::WITHDRAW_PENDING,
+                WithdrawStatus::WITHDRAW_CONFIRM,
+            ]);
         }
         $withdraws = Withdraw::whereIn('status', $request->get($statusListKey))
                      ->orderBy('create_time', 'desc')
