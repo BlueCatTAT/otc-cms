@@ -10,7 +10,7 @@
                 <h4 class="modal-title">确认提币</h4>
             </div>
             <div class="modal-body">
-                <p>将有<strong>{{$withdraw->amount}}</strong>的比特币转出给用户<span >{{$withdraw->uid}}</span></p>
+                <p>将从用户<span >{{$withdraw->uid}}</span>的账号中转出<strong>{{$withdraw->amount}}</strong>个比特币</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
