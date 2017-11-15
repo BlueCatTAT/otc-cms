@@ -43,6 +43,8 @@ final /**
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Order whereUname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Order whereUpdateTime($value)
  * @mixin \Eloquent
+ * @property string $ad_uname
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Order whereAdUname($value)
  */
 class Order extends Model
 {

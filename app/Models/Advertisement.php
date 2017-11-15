@@ -43,6 +43,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Advertisement whereUname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Advertisement whereUpdateTime($value)
  * @mixin \Eloquent
+ * @property string $sn
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Advertisement whereSn($value)
  */
 class Advertisement extends Model
 {

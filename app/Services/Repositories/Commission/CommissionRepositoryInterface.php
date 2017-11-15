@@ -20,7 +20,7 @@ interface CommissionRepositoryInterface
      * @param int $limit
      * @return Collection
      */
-    public function paginate(CryptoCurrencyType $type, $page, $limit);
+    public function paginate(CryptoCurrencyType $type, $page = 1, $limit = null);
 
     /**
      * @param CryptoCurrencyType $type

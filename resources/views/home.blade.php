@@ -40,6 +40,11 @@
                 </div>
             </div>
         </div>
+        @if ($commissionPageCount == 0)
+            <div class="well text-center">
+                <h2>暂无手续费记录</h2>
+            </div>
+        @else
         <table class="table">
             <thead>
             <tr>
@@ -68,6 +73,7 @@
                 :next-text="'下一页'"
                 :container-class="'pagination'"></paginate>
         </nav>
+        @endif
     </div>
 </div>
 @endsection

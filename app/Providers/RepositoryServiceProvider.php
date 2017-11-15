@@ -3,7 +3,7 @@
 namespace OtcCms\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use OtcCms\Services\Repositories\Commission\CommissionRepositoryArray;
+use OtcCms\Services\Repositories\Commission\CommissionRepository;
 use OtcCms\Services\Repositories\Commission\CommissionRepositoryInterface;
 use OtcCms\Services\Repositories\Customer\CustomerRepository;
 use OtcCms\Services\Repositories\Customer\CustomerRepositoryInterface;
@@ -37,6 +37,6 @@ class RepositoryServiceProvider extends ServiceProvider
             WalletRepository::class);
         $this->app->bind(
             CommissionRepositoryInterface::class,
-            CommissionRepositoryArray::class);
+            CommissionRepository::class);
     }
 }
