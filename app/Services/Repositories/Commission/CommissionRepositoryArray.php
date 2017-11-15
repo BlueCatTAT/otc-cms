@@ -30,7 +30,7 @@ class CommissionRepositoryArray implements CommissionRepositoryInterface
                 'date' => date('Y-m-d'),
                 'commission' => 0.1,
                 'total' => 100,
-                'ratio' => (0.1/100)*100000,
+                'ratio' => sprintf("%.4f", (0.1/100)*100),
             ],
             [
                 'id' => 2,
@@ -38,7 +38,7 @@ class CommissionRepositoryArray implements CommissionRepositoryInterface
                 'date' => date('Y-m-d', strtotime('-1 day')),
                 'commission' => 0.05,
                 'total' => 99,
-                'ratio' => (0.05/99)*100000,
+                'ratio' => sprintf("%.4f", (0.05/99)*100),
             ],
             [
                 'id' => 3,
@@ -46,7 +46,7 @@ class CommissionRepositoryArray implements CommissionRepositoryInterface
                 'date' => date('Y-m-d', strtotime('-2 days')),
                 'commission' => 0.2,
                 'total' => 300,
-                'ratio' => (0.2/300)*100000,
+                'ratio' => sprintf("%.4f", (0.2/300)*100),
             ]
         ]);
     }

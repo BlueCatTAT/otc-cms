@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 39);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -959,44 +959,8 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 9 */
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(10);
-module.exports = __webpack_require__(38);
-
-
-/***/ }),
-/* 10 */
-/***/ (function(module, exports, __webpack_require__) {
-
-
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
-__webpack_require__(11);
-
-window.Vue = __webpack_require__(35);
-
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-
-var app = new Vue({
-    el: '#app',
-    methods: {
-        popupModalFromUrl: function popupModalFromUrl(url) {
-            $('#cms-modal').load(url).modal();
-        }
-    }
-});
-
-/***/ }),
+/* 9 */,
+/* 10 */,
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42513,10 +42477,41 @@ exports.clearImmediate = clearImmediate;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(4)))
 
 /***/ }),
-/* 38 */
-/***/ (function(module, exports) {
+/* 38 */,
+/* 39 */
+/***/ (function(module, exports, __webpack_require__) {
 
-// removed by extract-text-webpack-plugin
+module.exports = __webpack_require__(40);
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(11);
+
+window.Vue = __webpack_require__(35);
+
+var homepage = new Vue({
+    el: '#homepage',
+    created: function created() {
+        this.getCommissionList(1);
+    },
+    data: {
+        commissionList: []
+    },
+    methods: {
+        getCommissionList: function getCommissionList(page) {
+            var _this = this;
+
+            $.get('/commissions', { page: page }, function (result) {
+                if (undefined === result.error) {
+                    _this.commissionList = result;
+                }
+            });
+        }
+    }
+});
 
 /***/ })
 /******/ ]);

@@ -16,10 +16,10 @@ window.Vue = require('vue');
  */
 
 const app = new Vue({
-  el: '#app',
-  methods: {
-    popupModalFromUrl: function(url) {
-      $('#cms-modal').load(url).modal();
+    el: '#app',
+    methods: {
+        popupModalFromUrl: function(url) {
+            $('#cms-modal').load(url).modal();
+        }
     }
-  }
 });

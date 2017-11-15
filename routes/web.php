@@ -83,3 +83,5 @@ Route::prefix('customer')->group(function() {
         ->name('customer_withdraw_list')
         ->middleware('customer.id');
 });
+
+Route::get('/commissions', 'CommissionController@getCommissionList');
