@@ -81,7 +81,6 @@ class CommissionRepository implements CommissionRepositoryInterface
         $commissionDaily->commission = $orderAgg['fee'];
         $commissionDaily->total = $orderAgg['quantity'];
         $commissionDaily->ratio = $orderAgg['quantity'] ? $orderAgg['fee']/$orderAgg['quantity'] : 0.0;
-        $commissionDaily->save();
         return $commissionDaily;
     }
 

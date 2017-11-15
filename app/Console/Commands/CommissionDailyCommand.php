@@ -16,7 +16,7 @@ class CommissionDailyCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'commission:daily {--date=} {--type='.CryptoCurrencyType::BITCOIN.'}';
+    protected $signature = 'commission:daily {--date=} {--type='.CryptoCurrencyType::BITCOIN.'} {--real}';
 
     /**
      * The console command description.
@@ -56,6 +56,7 @@ class CommissionDailyCommand extends Command
     {
         $date = $this->option('date');
         $typeValue = $this->option('type');
+        $real = $this->option('real');
         if (!CryptoCurrencyType::isValid($typeValue)) {
             $this->error("Cryptocurrency type $typeValue is not supported");
             return;
@@ -68,9 +69,12 @@ class CommissionDailyCommand extends Command
         try {
             $commissionDaily = $this->commissionRepository->calculate($date, $type);
             $this->info("The commission of $date is:");
-            $this->info("Commission: ".$commissionDaily->commission);
-            $this->info("Ratio: ".$commissionDaily->ratio);
-            $this->info("Total: ".$commissionDaily->total);
+            $this->info("\tCommission: ".$commissionDaily->commission);
+            $this->info("\tRatio: ".$commissionDaily->ratio);
+            $this->info("\tTotal: ".$commissionDaily->total);
+            if ($real) {
+                $commissionDaily->save();
+            }
         } catch (\Exception $e) {
             $this->error("Create daily commission failed, check log for more details.");
             $this->error($e->getMessage());
