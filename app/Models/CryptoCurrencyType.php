@@ -20,6 +20,6 @@ use MyCLabs\Enum\Enum;
  */
 class CryptoCurrencyType extends Enum
 {
-    const BITCOIN = 'bitcoin';
-    const ETHEREUM = 'ethereum';
+    const BITCOIN = '1';
+    const ETHEREUM = '2';
 }

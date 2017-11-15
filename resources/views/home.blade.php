@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" id="homepage">
     <div class="panel panel-default">
         <div class="panel-heading">钱包总览</div>
         <div class="panel-body">
@@ -50,8 +50,20 @@
             </tr>
             </thead>
             <tbody>
+                <tr v-for="commission in commissionList">
+                    @verbatim
+                        <td>{{ commission.date }}</td>
+                        <td>{{ commission.total }}</td>
+                        <td>{{ commission.ratio }}%</td>
+                        <td>{{ commission.commission }}</td>
+                    @endverbatim
+                </tr>
             </tbody>
         </table>
     </div>
 </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('/js/homepage.js') }}"></script>
 @endsection
