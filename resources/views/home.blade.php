@@ -8,19 +8,19 @@
             <form class="form-horizontal">
                 <div class="form-group">
                     <label class="control-label col-md-2">名称</label>
-                    <p class="form-control-static col-md-10">BTC</p>
+                    <p class="form-control-static col-md-10">{{ $walletSummary->getCryptoTypeName() }}</p>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">锁定中</label>
-                    <p class="form-control-static col-md-10">{{ $walletSummary->locked }}</p>
+                    <p class="form-control-static col-md-10">{{ $walletSummary->getLocked() }}</p>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">有效余额</label>
-                    <p class="form-control-static col-md-10">{{ $walletSummary->balance }}</p>
+                    <p class="form-control-static col-md-10">{{ $walletSummary->getBalance() }}</p>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">总计</label>
-                    <p class="form-control-static col-md-10">{{ $walletSummary->total }}</p>
+                    <p class="form-control-static col-md-10">{{ $walletSummary->getTotal() }}</p>
                 </div>
             </form>
         </div>

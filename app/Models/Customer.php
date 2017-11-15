@@ -48,6 +48,7 @@ class Customer extends Model
 {
     const CREATED_AT = 'create_time';
     const UPDATED_AT = 'update_time';
+    const SYS_USER_ID = 1;
     protected $table = 'user';
 
     public function wallet()
