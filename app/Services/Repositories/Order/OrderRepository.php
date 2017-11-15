@@ -133,7 +133,7 @@ class OrderRepository implements OrderRepositoryInterface
         return [
             'quantity' => $record->quantity ? $record->quantity : 0,
             'fee' => $record->fee ? $record->fee : 0,
-            'ratio' => $record->rate ?  $record->reate : 0,
+            'ratio' => $record->rate ?  $record->rate : 0,
         ];
     }
 }
