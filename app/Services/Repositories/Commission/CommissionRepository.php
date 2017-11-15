@@ -12,9 +12,21 @@ namespace OtcCms\Services\Repositories\Commission;
 use Doctrine\Common\Collections\Collection;
 use OtcCms\Models\CommissionDaily;
 use OtcCms\Models\CryptoCurrencyType;
+use OtcCms\Services\Repositories\Order\OrderRepositoryInterface;
+use function Psy\sh;
 
 class CommissionRepository implements CommissionRepositoryInterface
 {
+
+    /**
+     * @var OrderRepositoryInterface
+     */
+    private $orderRepository;
+
+    public function __construct(OrderRepositoryInterface $orderRepository)
+    {
+        $this->orderRepository = $orderRepository;
+    }
 
     /**
      * @param CryptoCurrencyType $type
@@ -46,5 +58,37 @@ class CommissionRepository implements CommissionRepositoryInterface
         return $query
             ->where('crypto_type', $type->getValue())
             ->count();
+    }
+
+    /**
+     * At this moment, order table only support bitcoin, so the $type
+     * parameter is redundant. But I decide to keep it just in case.
+     *
+     * @param string $date YYYY-MM-DD
+     * @param CryptoCurrencyType $type
+     * @return CommissionDaily
+     */
+    public function calculate($date, CryptoCurrencyType $type)
+    {
+        $commissionDaily = $this->findByDateAndType($date, $type);
+        if ($commissionDaily) {
+            return $commissionDaily;
+        }
+        $orderAgg = $this->orderRepository->sumQuantityAndFeeOfFinished($date);
+        $commissionDaily = new CommissionDaily();
+        $commissionDaily->date = $date;
+        $commissionDaily->crypto_type = $type->getValue();
+        $commissionDaily->commission = $orderAgg['fee'];
+        $commissionDaily->total = $orderAgg['quantity'];
+        $commissionDaily->ratio = $orderAgg['quantity'] ? $orderAgg['fee']/$orderAgg['quantity'] : 0.0;
+        $commissionDaily->save();
+        return $commissionDaily;
+    }
+
+    private function findByDateAndType($date, CryptoCurrencyType $type)
+    {
+        return CommissionDaily::where('date', $date)
+            ->where('crypto_type', $type->getValue())
+            ->first();
     }
 }

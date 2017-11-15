@@ -45,4 +45,10 @@ interface OrderRepositoryInterface
      * @return boolean
      */
     public function cancel(Order $order, User $user, $comment);
+
+    /**
+     * @param $date
+     * @return array
+     */
+    public function sumQuantityAndFeeOfFinished($date);
 }

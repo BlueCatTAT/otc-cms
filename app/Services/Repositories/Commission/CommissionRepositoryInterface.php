@@ -10,6 +10,7 @@ namespace OtcCms\Services\Repositories\Commission;
 
 
 use Doctrine\Common\Collections\Collection;
+use OtcCms\Models\CommissionDaily;
 use OtcCms\Models\CryptoCurrencyType;
 
 interface CommissionRepositoryInterface
@@ -27,4 +28,11 @@ interface CommissionRepositoryInterface
      * @return int
      */
     public function count(CryptoCurrencyType $type);
+
+    /**
+     * @param string $date YYYY-MM-DD
+     * @param CryptoCurrencyType $type
+     * @return CommissionDaily
+     */
+    public function calculate($date, CryptoCurrencyType $type);
 }

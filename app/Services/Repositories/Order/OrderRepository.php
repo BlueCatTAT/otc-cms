@@ -113,4 +113,25 @@ class OrderRepository implements OrderRepositoryInterface
             ->join('user as publisher', 'order.ad_uid', '=', 'publisher.id')
             ->select('order.*', 'owner.nickname as uname', 'publisher.nickname as ad_uname');
     }
+
+    /**
+     * @param $date
+     * @return array
+     */
+    public function sumQuantityAndFeeOfFinished($date)
+    {
+        $dateTime = new \DateTime($date);
+        $startTime = $dateTime->format('Y-m-d 00:00:00');
+        $dateTime->add(new \DateInterval('P1D'));
+        $endTime = $dateTime->format('Y-m-d 00:00:00');
+        $record = DB::table('order')->selectRaw('SUM(quantity) as quantity, SUM(fee) as fee')
+            ->where('finish_time', '>=', $startTime)
+            ->where('finish_time', '<', $endTime)
+            ->where('status', OrderStatus::DONE)
+            ->first();
+        return [
+            'quantity' => $record->quantity ? $record->quantity : 0,
+            'fee' => $record->fee ? $record->fee : 0,
+        ];
+    }
 }

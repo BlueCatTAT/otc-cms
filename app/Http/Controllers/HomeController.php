@@ -23,9 +23,10 @@ class HomeController extends Controller
                           CommissionRepositoryInterface $commissionRepository)
     {
         $type = CryptoCurrencyType::BITCOIN();
+        $limit = config('view.paginator.limit');
         return view('home', [
             'walletSummary' => $walletRepository->getSummary($type),
-            'commissionPageCount' => $commissionRepository->count($type),
+            'commissionPageCount' => ceil($commissionRepository->count($type)/$limit),
         ]);
     }
 }

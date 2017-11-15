@@ -5,6 +5,7 @@ namespace OtcCms\Console;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use OtcCms\Console\Commands\AttachRole;
+use OtcCms\Console\Commands\CommissionDailyCommand;
 use OtcCms\Console\Commands\CreateUser;
 use OtcCms\Console\Commands\InitRoles;
 
@@ -20,6 +21,7 @@ class Kernel extends ConsoleKernel
         CreateUser::class,
         InitRoles::class,
         AttachRole::class,
+        CommissionDailyCommand::class,
     ];
 
     /**
