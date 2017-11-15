@@ -24,4 +24,9 @@ interface OrderServiceInterface
      * @return Result
      */
     public function cancel(Order $order, $comment);
+
+    /**
+     * @return Result
+     */
+    public function getCurrentCommissionRatio();
 }

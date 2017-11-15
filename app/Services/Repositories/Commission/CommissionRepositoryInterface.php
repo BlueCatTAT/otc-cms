@@ -35,4 +35,9 @@ interface CommissionRepositoryInterface
      * @return CommissionDaily
      */
     public function calculate($date, CryptoCurrencyType $type);
+
+    /**
+     * @return float
+     */
+    public function getCurrentCommissionRatio();
 }

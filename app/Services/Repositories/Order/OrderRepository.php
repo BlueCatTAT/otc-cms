@@ -124,7 +124,8 @@ class OrderRepository implements OrderRepositoryInterface
         $startTime = $dateTime->format('Y-m-d 00:00:00');
         $dateTime->add(new \DateInterval('P1D'));
         $endTime = $dateTime->format('Y-m-d 00:00:00');
-        $record = DB::table('order')->selectRaw('SUM(quantity) as quantity, SUM(fee) as fee')
+        $record = DB::table('order')
+            ->selectRaw('SUM(quantity) as quantity, SUM(fee) as fee, AVG(rate) as rate')
             ->where('finish_time', '>=', $startTime)
             ->where('finish_time', '<', $endTime)
             ->where('status', OrderStatus::DONE)
@@ -132,6 +133,7 @@ class OrderRepository implements OrderRepositoryInterface
         return [
             'quantity' => $record->quantity ? $record->quantity : 0,
             'fee' => $record->fee ? $record->fee : 0,
+            'ratio' => $record->rate ?  $record->reate : 0,
         ];
     }
 }

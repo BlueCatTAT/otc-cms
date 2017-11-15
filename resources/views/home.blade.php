@@ -36,7 +36,7 @@
                 </div>
                 <div class="col-md-3">
                     <h2>当日实时收</h2>
-                    <h3 class="text-danger">100BTC</h3>
+                    <h3 class="text-danger">{{ $commissionToday->commission }}BTC</h3>
                 </div>
             </div>
         </div>

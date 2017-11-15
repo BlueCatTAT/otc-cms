@@ -24,9 +24,12 @@ class HomeController extends Controller
     {
         $type = CryptoCurrencyType::BITCOIN();
         $limit = config('view.paginator.limit');
+        $commissionDaily = $commissionRepository->calculate(date('Y-m-d'), $type);
         return view('home', [
             'walletSummary' => $walletRepository->getSummary($type),
             'commissionPageCount' => ceil($commissionRepository->count($type)/$limit),
+            'commissionToday' => $commissionDaily,
+            'currentCommissionRatio' => $commissionRepository->getCurrentCommissionRatio(),
         ]);
     }
 }

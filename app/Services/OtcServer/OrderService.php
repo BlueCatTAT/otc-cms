@@ -53,4 +53,13 @@ class OrderService implements OrderServiceInterface
 
         return Result::create($this->client->getLastRequestId(), $response);
     }
+
+    /**
+     * @return Result
+     */
+    public function getCurrentCommissionRatio()
+    {
+        $response = $this->client->post('/admin/commissionRate', []);
+        return Result::create($this->client->getLastRequestId(), $response);
+    }
 }

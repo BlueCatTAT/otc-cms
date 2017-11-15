@@ -12,6 +12,7 @@ namespace OtcCms\Services\Repositories\Commission;
 use Doctrine\Common\Collections\Collection;
 use OtcCms\Models\CommissionDaily;
 use OtcCms\Models\CryptoCurrencyType;
+use OtcCms\Services\OtcServer\OrderServiceInterface;
 use OtcCms\Services\Repositories\Order\OrderRepositoryInterface;
 use function Psy\sh;
 
@@ -22,10 +23,16 @@ class CommissionRepository implements CommissionRepositoryInterface
      * @var OrderRepositoryInterface
      */
     private $orderRepository;
+    /**
+     * @var OrderServiceInterface
+     */
+    private $orderService;
 
-    public function __construct(OrderRepositoryInterface $orderRepository)
+    public function __construct(OrderRepositoryInterface $orderRepository,
+                                OrderServiceInterface $orderService)
     {
         $this->orderRepository = $orderRepository;
+        $this->orderService = $orderService;
     }
 
     /**
@@ -80,7 +87,7 @@ class CommissionRepository implements CommissionRepositoryInterface
         $commissionDaily->crypto_type = $type->getValue();
         $commissionDaily->commission = $orderAgg['fee'];
         $commissionDaily->total = $orderAgg['quantity'];
-        $commissionDaily->ratio = $orderAgg['quantity'] ? $orderAgg['fee']/$orderAgg['quantity'] : 0.0;
+        $commissionDaily->ratio = $orderAgg['ratio'];
         return $commissionDaily;
     }
 
@@ -89,5 +96,17 @@ class CommissionRepository implements CommissionRepositoryInterface
         return CommissionDaily::where('date', $date)
             ->where('crypto_type', $type->getValue())
             ->first();
+    }
+
+    /**
+     * @return float
+     */
+    public function getCurrentCommissionRatio()
+    {
+        $response = $this->orderService->getCurrentCommissionRatio()->getResponse();
+        if (!$response->isSuccessful()) {
+            return 0;
+        }
+        return (float) $response->getData();
     }
 }
