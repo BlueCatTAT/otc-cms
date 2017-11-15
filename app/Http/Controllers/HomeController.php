@@ -3,6 +3,7 @@
 namespace OtcCms\Http\Controllers;
 
 use Illuminate\Http\Request;
+use OtcCms\Services\Repositories\Wallet\WalletRepositoryInterface;
 
 class HomeController extends Controller
 {
@@ -21,8 +22,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(WalletRepositoryInterface $walletRepository)
     {
-        return view('home');
+        return view('home', [
+            'walletSummary' => $walletRepository->getSummary(),
+        ]);
     }
 }
