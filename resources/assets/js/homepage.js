@@ -1,6 +1,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+const Paginate = require('vuejs-paginate');
+Vue.component('paginate', Paginate);
 
 const homepage = new Vue({
     el: '#homepage',

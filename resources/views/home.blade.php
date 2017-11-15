@@ -60,6 +60,14 @@
                 </tr>
             </tbody>
         </table>
+        <nav aria-label="Page navigation">
+            <paginate
+                :page-count="{{ $commissionPageCount }}"
+                :click-handler="getCommissionList"
+                :prev-text="'上一页'"
+                :next-text="'下一页'"
+                :container-class="'pagination'"></paginate>
+        </nav>
     </div>
 </div>
 @endsection

@@ -28,7 +28,7 @@ class CommissionRepositoryArray implements CommissionRepositoryInterface
                 'id' => 1,
                 'crypto_type' => $type->getValue(),
                 'date' => date('Y-m-d'),
-                'commission' => 0.1,
+                'commission' => mt_rand(1, 999)/1000,
                 'total' => 100,
                 'ratio' => sprintf("%.4f", (0.1/100)*100),
             ],
@@ -36,7 +36,7 @@ class CommissionRepositoryArray implements CommissionRepositoryInterface
                 'id' => 2,
                 'crypto_type' => $type->getValue(),
                 'date' => date('Y-m-d', strtotime('-1 day')),
-                'commission' => 0.05,
+                'commission' => mt_rand(1, 999)/1000,
                 'total' => 99,
                 'ratio' => sprintf("%.4f", (0.05/99)*100),
             ],
@@ -44,10 +44,19 @@ class CommissionRepositoryArray implements CommissionRepositoryInterface
                 'id' => 3,
                 'crypto_type' => $type->getValue(),
                 'date' => date('Y-m-d', strtotime('-2 days')),
-                'commission' => 0.2,
+                'commission' => mt_rand(1, 999)/1000,
                 'total' => 300,
                 'ratio' => sprintf("%.4f", (0.2/300)*100),
             ]
         ]);
+    }
+
+    /**
+     * @param CryptoCurrencyType $type
+     * @return int
+     */
+    public function count(CryptoCurrencyType $type)
+    {
+        return 15;
     }
 }

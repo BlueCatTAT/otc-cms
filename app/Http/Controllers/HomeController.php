@@ -4,6 +4,7 @@ namespace OtcCms\Http\Controllers;
 
 use Illuminate\Http\Request;
 use OtcCms\Models\CryptoCurrencyType;
+use OtcCms\Services\Repositories\Commission\CommissionRepositoryInterface;
 use OtcCms\Services\Repositories\Wallet\WalletRepositoryInterface;
 
 class HomeController extends Controller
@@ -18,11 +19,13 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(WalletRepositoryInterface $walletRepository)
+    public function index(WalletRepositoryInterface $walletRepository,
+                          CommissionRepositoryInterface $commissionRepository)
     {
         $type = CryptoCurrencyType::BITCOIN();
         return view('home', [
             'walletSummary' => $walletRepository->getSummary($type),
+            'commissionPageCount' => $commissionRepository->count($type),
         ]);
     }
 }
