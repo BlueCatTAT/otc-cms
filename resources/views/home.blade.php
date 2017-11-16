@@ -32,7 +32,7 @@
             <div class="row text-center">
                 <div class="col-md-6">
                     <h2>当前手续费比率</h2>
-                    <h3 class="text-danger">0.05%</h3>
+                    <h3 class="text-danger">{{ $currentCommissionRatio }}%</h3>
                 </div>
                 <div class="col-md-3">
                     <h2>当日实时收</h2>
