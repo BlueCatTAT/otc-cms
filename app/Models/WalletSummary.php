@@ -73,6 +73,6 @@ final class WalletSummary
 
     public function getCryptoTypeName()
     {
-        return $this->cryptoCurrencyType->getValue();
+        return $this->cryptoCurrencyType->getKey();
     }
 }

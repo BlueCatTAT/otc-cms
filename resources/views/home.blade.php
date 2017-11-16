@@ -8,7 +8,7 @@
             <form class="form-horizontal">
                 <div class="form-group">
                     <label class="control-label col-md-2">名称</label>
-                    <p class="form-control-static col-md-10">{{ $walletSummary->getCryptoTypeName() }}</p>
+                    <p class="form-control-static col-md-10">{{ __('glossary.'.$walletSummary->getCryptoTypeName()) }}</p>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">锁定中</label>
