@@ -45,6 +45,10 @@ final /**
  * @mixin \Eloquent
  * @property string $ad_uname
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Order whereAdUname($value)
+ * @property float $rate 订单费率
+ * @property float $fee 交易费
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Order whereFee($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Order whereRate($value)
  */
 class Order extends Model
 {
@@ -125,6 +129,11 @@ class Order extends Model
             $this->statusObj = OrderStatus::valueOf($this->status);
         }
         return $this->statusObj;
+    }
+
+    public function hasFinished()
+    {
+        return $this->status == OrderStatus::DONE;
     }
 
 }
