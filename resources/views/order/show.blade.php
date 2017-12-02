@@ -62,7 +62,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-2">成交手续费</label>
                         <div class="col-sm-10">
-                            <p class="form-control-static">@crytoicon($order->ad_token_type){{ $order->fee }}</p>
+                            <p class="form-control-static">@cryptoicon($order->ad_token_type){{ $order->fee }}</p>
                         </div>
                     </div>
                     <div class="form-group">
