@@ -49,6 +49,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Withdraw whereUname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Withdraw whereUpdateTime($value)
  * @mixin \Eloquent
+ * @property int $token_type 1-BTC; 2-ETH; 3-BCH; 4-Other.
+ * @property float $fee_mine 提现矿工费(公链实收)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Withdraw whereFeeMine($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Withdraw whereTokenType($value)
  */
 class Withdraw extends Model
 {

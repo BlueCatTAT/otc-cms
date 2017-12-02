@@ -22,4 +22,14 @@ class CryptoCurrencyType extends Enum
 {
     const BITCOIN = 1;
     const ETHEREUM = 2;
+
+    public static function valueOf($type)
+    {
+        if ($type == self::BITCOIN) {
+            return self::BITCOIN();
+        } elseif ($type == self::ETHEREUM) {
+            return self::ETHEREUM();
+        }
+        throw new \InvalidArgumentException("Unknown crypt type {$type}");
+    }
 }

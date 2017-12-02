@@ -39,6 +39,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Wallet whereUpdateTime($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Wallet whereWithdraw($value)
  * @mixin \Eloquent
+ * @property int $token_type 1-BTC; 2-ETH; 3-Other.
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Wallet whereTokenType($value)
  */
 class Wallet extends Model
 {

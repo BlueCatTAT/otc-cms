@@ -17,7 +17,9 @@
             <td>{{$order->ad_uname}}</td>
             <td>{{$order->uname}}</td>
             <td>{{$order->amount}}</td>
-            <td>{{$order->quantity}}</td>
+            <td>
+                @cryptoicon($order->ad_token_type){{$order->quantity}}
+            </td>
             <td>{{ \OtcCms\Models\OrderStatus::valueOf($order->status)->getText() }}</td>
             <td>
                 <a href="{{ route('order_detail', [$order->id]) }}"

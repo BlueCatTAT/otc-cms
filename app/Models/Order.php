@@ -49,6 +49,8 @@ final /**
  * @property float $fee 交易费
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Order whereFee($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Order whereRate($value)
+ * @property int $ad_token_type 所对应的发布（广告）token_type[1-BTC; 2-ETH; 3-Other].
+ * @method static \Illuminate\Database\Eloquent\Builder|\OtcCms\Models\Order whereAdTokenType($value)
  */
 class Order extends Model
 {
@@ -135,5 +137,4 @@ class Order extends Model
     {
         return $this->status == OrderStatus::DONE;
     }
-
 }
