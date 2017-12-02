@@ -47,9 +47,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">数字货币(BTC)</label>
+                        <label class="control-label col-sm-2">数字货币</label>
                         <div class="col-sm-10">
-                            <p class="form-control-static">{{ $order->quantity }}</p>
+                            <p class="form-control-static">@cryptoicon($order->ad_token_type){{ $order->quantity }}</p>
                         </div>
                     </div>
                     <div class="form-group">
@@ -60,9 +60,9 @@
                     </div>
                     @if ($order->hasFinished())
                     <div class="form-group">
-                        <label class="control-label col-sm-2">成交手续费(BTC)</label>
+                        <label class="control-label col-sm-2">成交手续费</label>
                         <div class="col-sm-10">
-                            <p class="form-control-static">{{ $order->fee }}</p>
+                            <p class="form-control-static">@crytoicon($order->ad_token_type){{ $order->fee }}</p>
                         </div>
                     </div>
                     <div class="form-group">
