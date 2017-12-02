@@ -16,7 +16,7 @@
         <tr>
             <td>{{ $withdraw->uid }}</td>
             <td>{{ $withdraw->uname }}</td>
-            <td>{{ $withdraw->amount }}</td>
+            <td>@cryptoicon($withdraw->token_type){{ $withdraw->amount }}</td>
             <td>{{ $withdraw->create_time }}</td>
             <td>
                 {{ $withdraw->audit_time or '----' }}

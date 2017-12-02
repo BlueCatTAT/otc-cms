@@ -38,7 +38,7 @@ class WithdrawController extends Controller
         $withdraws = Withdraw::whereIn('status', $request->get($statusListKey))
                      ->orderBy('create_time', 'desc')
                      ->paginate(30, [
-                         'id', 'uid', 'uname', 'amount', 'create_time', 'status'
+                         'id', 'uid', 'uname', 'amount', 'create_time', 'status', 'token_type'
                      ]);
         return view('withdraw.index', [
             'withdrawList' => $withdraws,

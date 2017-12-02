@@ -23,15 +23,15 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">比特币地址</label>
+                        <label class="control-label col-sm-2">地址</label>
                         <div class="col-sm-10">
-                            <p class="form-control-static">{{$withdraw->bitcoin_address or '----'}}</p>
+                            <p class="form-control-static">{{$withdraw->address or '----'}}</p>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-2">数量</label>
                         <div class="col-sm-10">
-                            <p class="form-control-static">{{$withdraw->amount}}</p>
+                            <p class="form-control-static">@cryptoicon($withdraw->token_type){{$withdraw->amount}}</p>
                         </div>
                     </div>
                     <div class="form-group">
