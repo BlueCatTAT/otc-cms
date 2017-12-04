@@ -3,10 +3,10 @@
 @section('content')
 <div class="container" id="homepage">
     <ul class="nav nav-tabs">
-        <li role="presentation"@if($app->request->query->get('type') == \OtcCms\Models\CryptoCurrencyType::BITCOIN) class="active" @endif>
+        <li role="presentation" @if($app->request->query->get('type') == \OtcCms\Models\CryptoCurrencyType::BITCOIN) class="active" @endif>
             <a href="{{ route('home', ['type'=>\OtcCms\Models\CryptoCurrencyType::BITCOIN]) }}">{{ __('glossary.BITCOIN') }}</a>
         </li>
-        <li role="presentation"@if($app->request->query->get('type') == \OtcCms\Models\CryptoCurrencyType::ETHEREUM) class="active" @endif>
+        <li role="presentation" @if($app->request->query->get('type') == \OtcCms\Models\CryptoCurrencyType::ETHEREUM) class="active" @endif>
             <a href="{{ route('home', ['type'=>\OtcCms\Models\CryptoCurrencyType::ETHEREUM]) }}">{{ __('glossary.ETHEREUM') }}</a>
         </li>
     </ul>
@@ -81,14 +81,14 @@
                 :next-text="'下一页'"
                 :container-class="'pagination'"></paginate>
         </nav>
-
+        @endif
     </div>
 </div>
 @endsection
 
 @section('scripts')
     <script>
-        window.CRYPTO_TYPE={{ $app->request->input('type') }};
+        window.CRYPTO_TYPE = {{ $app->request->input('type') }};
     </script>
     <script src="{{ asset('/js/homepage.js') }}"></script>
 @endsection
