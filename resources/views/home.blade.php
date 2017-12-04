@@ -81,11 +81,14 @@
                 :next-text="'下一页'"
                 :container-class="'pagination'"></paginate>
         </nav>
-        @endif
+
     </div>
 </div>
 @endsection
 
 @section('scripts')
+    <script>
+        window.CRYPTO_TYPE={{ $app->request->input('type') }};
+    </script>
     <script src="{{ asset('/js/homepage.js') }}"></script>
 @endsection

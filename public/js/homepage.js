@@ -42500,13 +42500,14 @@ var homepage = new Vue({
         this.getCommissionList(1);
     },
     data: {
-        commissionList: []
+        commissionList: [],
+        cryptoType: window.CRYPTO_TYPE
     },
     methods: {
         getCommissionList: function getCommissionList(page) {
             var _this = this;
 
-            $.get('/commissions', { page: page }, function (result) {
+            $.get('/commissions/?type=' + this.cryptoType, { page: page }, function (result) {
                 if (undefined === result.error) {
                     _this.commissionList = result;
                 }

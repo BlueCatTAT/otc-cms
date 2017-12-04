@@ -11,10 +11,11 @@ const homepage = new Vue({
     },
     data: {
         commissionList: [],
+        cryptoType: window.CRYPTO_TYPE,
     },
     methods: {
         getCommissionList: function(page) {
-            $.get('/commissions', { page: page }, result => {
+            $.get('/commissions/?type='+this.cryptoType, { page: page }, result => {
                 if (undefined === result.error) {
                     this.commissionList = result;
                 }
