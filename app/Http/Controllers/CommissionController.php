@@ -17,10 +17,17 @@ class CommissionController extends Controller
     public function getCommissionList(Request $request,
                                       CommissionRepositoryInterface $commissionRepository)
     {
-        $type = CryptoCurrencyType::BITCOIN();
-        $page = $request->input('page', 1);
-        $limit = $request->input('limit');
-        $commissionList = $commissionRepository->paginate($type, $page, $limit);
+        $page = (int) $request->input('page', 1);
+        $limit = (int) $request->input('limit');
+        $type = (int) $request->input('type', CryptoCurrencyType::BITCOIN);
+        if (!CryptoCurrencyType::isValid($type)) {
+            $type = CryptoCurrencyType::BITCOIN;
+        }
+
+        $commissionList = $commissionRepository->paginate(
+            CryptoCurrencyType::valueOf($type),
+            $page,
+            $limit);
         return response()->json($commissionList->toArray());
     }
 }
