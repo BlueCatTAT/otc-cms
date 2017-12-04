@@ -44,7 +44,7 @@
                 </div>
                 <div class="col-md-3">
                     <h2>当日实时收</h2>
-                    <h3 class="text-danger">{{ $commissionToday->commission }}BTC</h3>
+                    <h3 class="text-danger">{{ $commissionToday->commission }}</h3>
                 </div>
             </div>
         </div>
@@ -57,9 +57,9 @@
             <thead>
             <tr>
                 <th>时间</th>
-                <th>交易额(BTC)</th>
+                <th>交易额</th>
                 <th>手续费比率</th>
-                <th>收入(BTC)</th>
+                <th>收入</th>
             </tr>
             </thead>
             <tbody>
