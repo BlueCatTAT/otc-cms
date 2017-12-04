@@ -35,6 +35,12 @@ final class WalletSummary
      */
     private $total;
 
+    /**
+     * @param CryptoCurrencyType $type
+     * @param float $locked
+     * @param float $balance
+     * @return WalletSummary
+     */
     public static function create(CryptoCurrencyType $type, $locked, $balance)
     {
         Assert::greaterThanEq($locked, 0, 'Locked value must be greater than 0');

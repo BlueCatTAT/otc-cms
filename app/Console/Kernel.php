@@ -8,6 +8,7 @@ use OtcCms\Console\Commands\AttachRole;
 use OtcCms\Console\Commands\CommissionDailyCommand;
 use OtcCms\Console\Commands\CreateUser;
 use OtcCms\Console\Commands\InitRoles;
+use OtcCms\Models\CryptoCurrencyType;
 
 class Kernel extends ConsoleKernel
 {
@@ -33,6 +34,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('commission:daily --real')->daily();
+        $schedule->command('commission:daily --type '.CryptoCurrencyType::ETHEREUM.' --real')->daily();
     }
 
     /**

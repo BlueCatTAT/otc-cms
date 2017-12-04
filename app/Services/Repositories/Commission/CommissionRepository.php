@@ -81,7 +81,7 @@ class CommissionRepository implements CommissionRepositoryInterface
         if ($commissionDaily) {
             return $commissionDaily;
         }
-        $orderAgg = $this->orderRepository->sumQuantityAndFeeOfFinished($date);
+        $orderAgg = $this->orderRepository->sumQuantityAndFeeOfFinished($date, $type);
         $commissionDaily = new CommissionDaily();
         $commissionDaily->date = $date;
         $commissionDaily->crypto_type = $type->getValue();

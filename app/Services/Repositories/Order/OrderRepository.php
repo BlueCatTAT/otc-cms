@@ -4,6 +4,7 @@ namespace OtcCms\Services\Repositories\Order;
 
 use DB;
 use Illuminate\Contracts\Pagination\Paginator;
+use OtcCms\Models\CryptoCurrencyType;
 use OtcCms\Models\Order;
 use OtcCms\Models\OrderStatus;
 use OtcCms\Models\StatusLog;
@@ -116,9 +117,10 @@ class OrderRepository implements OrderRepositoryInterface
 
     /**
      * @param $date
+     * @param CryptoCurrencyType $type
      * @return array
      */
-    public function sumQuantityAndFeeOfFinished($date)
+    public function sumQuantityAndFeeOfFinished($date, CryptoCurrencyType $type)
     {
         $dateTime = new \DateTime($date);
         $startTime = $dateTime->format('Y-m-d 00:00:00');
@@ -129,6 +131,7 @@ class OrderRepository implements OrderRepositoryInterface
             ->where('finish_time', '>=', $startTime)
             ->where('finish_time', '<', $endTime)
             ->where('status', OrderStatus::DONE)
+            ->where('ad_token_type', $type->getValue())
             ->first();
         return [
             'quantity' => $record->quantity ? $record->quantity : 0,

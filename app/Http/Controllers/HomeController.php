@@ -20,9 +20,16 @@ class HomeController extends Controller
     }
 
     public function index(WalletRepositoryInterface $walletRepository,
-                          CommissionRepositoryInterface $commissionRepository)
+                          CommissionRepositoryInterface $commissionRepository,
+                          Request $request)
     {
-        $type = CryptoCurrencyType::BITCOIN();
+        $type = (int) $request->query->get('type', CryptoCurrencyType::BITCOIN);
+        if (!CryptoCurrencyType::isValid($type)) {
+            $type = CryptoCurrencyType::BITCOIN;
+        }
+        $type = CryptoCurrencyType::valueOf($type);
+        $request->query->set('type', $type->getValue());
+
         $limit = config('view.paginator.limit');
         $commissionDaily = $commissionRepository->calculate(date('Y-m-d'), $type);
         return view('home', [

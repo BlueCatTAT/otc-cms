@@ -23,7 +23,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-sm-2">地址</label>
+                        <label class="control-label col-sm-2">目标地址</label>
                         <div class="col-sm-10">
                             <p class="form-control-static">{{$withdraw->address or '----'}}</p>
                         </div>

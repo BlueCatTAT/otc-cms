@@ -2,6 +2,14 @@
 
 @section('content')
 <div class="container" id="homepage">
+    <ul class="nav nav-tabs">
+        <li role="presentation"@if($app->request->query->get('type') == \OtcCms\Models\CryptoCurrencyType::BITCOIN) class="active" @endif>
+            <a href="{{ route('home', ['type'=>\OtcCms\Models\CryptoCurrencyType::BITCOIN]) }}">{{ __('glossary.BITCOIN') }}</a>
+        </li>
+        <li role="presentation"@if($app->request->query->get('type') == \OtcCms\Models\CryptoCurrencyType::ETHEREUM) class="active" @endif>
+            <a href="{{ route('home', ['type'=>\OtcCms\Models\CryptoCurrencyType::ETHEREUM]) }}">{{ __('glossary.ETHEREUM') }}</a>
+        </li>
+    </ul>
     <div class="panel panel-default">
         <div class="panel-heading">钱包总览</div>
         <div class="panel-body">

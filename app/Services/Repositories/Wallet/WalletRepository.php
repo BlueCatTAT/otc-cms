@@ -29,8 +29,11 @@ class WalletRepository implements WalletRepositoryInterface
         $query = new Wallet();
         $result = $query->selectRaw($sql)
             ->where('uid', '<>', Customer::SYS_USER_ID)
+            ->where('token_type', $type->getValue())
             ->first();
-        $summary = WalletSummary::create($type, $result['locked'], $result['balance']);
+        $locked = $result['locked'] ?: 0.0;
+        $balance = $result['balance'] ?: 0.0;
+        $summary = WalletSummary::create($type, $locked, $balance);
         return $summary;
     }
 }

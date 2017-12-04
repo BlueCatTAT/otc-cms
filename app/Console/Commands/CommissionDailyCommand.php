@@ -55,7 +55,7 @@ class CommissionDailyCommand extends Command
     public function handle()
     {
         $date = $this->option('date');
-        $typeValue = $this->option('type');
+        $typeValue = (int) $this->option('type');
         $real = $this->option('real');
         if (!CryptoCurrencyType::isValid($typeValue)) {
             $this->error("Cryptocurrency type $typeValue is not supported");
@@ -68,7 +68,7 @@ class CommissionDailyCommand extends Command
 
         try {
             $commissionDaily = $this->commissionRepository->calculate($date, $type);
-            $this->info("The commission of $date is:");
+            $this->info("The commission of ".$type->getKey()." on $date is:");
             $this->info("\tCommission: ".$commissionDaily->commission);
             $this->info("\tRatio: ".$commissionDaily->ratio);
             $this->info("\tTotal: ".$commissionDaily->total);

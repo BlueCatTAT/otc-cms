@@ -10,6 +10,7 @@ namespace OtcCms\Services\Repositories\Order;
 
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Database\Eloquent\Collection;
+use OtcCms\Models\CryptoCurrencyType;
 use OtcCms\Models\Order;
 use OtcCms\Models\User;
 
@@ -48,7 +49,8 @@ interface OrderRepositoryInterface
 
     /**
      * @param $date
+     * @param $type
      * @return array
      */
-    public function sumQuantityAndFeeOfFinished($date);
+    public function sumQuantityAndFeeOfFinished($date, CryptoCurrencyType $type);
 }
