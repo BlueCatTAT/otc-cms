@@ -62,9 +62,10 @@ class CommissionRepository implements CommissionRepositoryInterface
     public function count(CryptoCurrencyType $type)
     {
         $query = new CommissionDaily();
-        return $query
+        $count = $query
             ->where('crypto_type', $type->getValue())
             ->count();
+        return $count > 0 ? $count : 0;
     }
 
     /**
