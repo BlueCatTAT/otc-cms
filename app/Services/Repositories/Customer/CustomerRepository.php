@@ -36,7 +36,8 @@ class CustomerRepository implements CustomerRepositoryInterface
     public function searchByNameOrId($query)
     {
         if (is_numeric($query)) {
-            return collect([Customer::find((int) $query)]);
+            $customer = Customer::find((int) $query);
+            return $customer ? collect($customer) : collect([]);
         }
 
         return $this->searchByName($query);
