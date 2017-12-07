@@ -3,6 +3,7 @@
 namespace OtcCms\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use OtcCms\Models\OrderType;
 use OtcCms\Services\Repositories\Order\OrderRepositoryInterface;
 use Auth;
@@ -16,7 +17,12 @@ class OrderController extends Controller
         // When the query has no type parameter, set default value
         $request->query->set('type', $type);
         $customerName = $request->get('nickname', '');
-        $orderList = $orderRepository->paginateWithTypeAndCustomerName($type, $customerName);
+        $sn = $request->get('sn');
+        if ($sn) {
+            $orderList = [ $orderRepository->findBySn($sn) ];
+        } else {
+            $orderList = $orderRepository->paginateWithTypeAndCustomerName($type, $customerName);
+        }
         return view('order.index', [
             'orderList' => $orderList,
             'orderTypeList' => OrderType::all(),

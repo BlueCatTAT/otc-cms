@@ -53,4 +53,10 @@ interface OrderRepositoryInterface
      * @return array
      */
     public function sumQuantityAndFeeOfFinished($date, CryptoCurrencyType $type);
+
+    /**
+     * @param string $sn
+     * @return Order
+     */
+    public function findBySn($sn);
 }

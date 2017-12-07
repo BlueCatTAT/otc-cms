@@ -1,6 +1,7 @@
 <table class="table">
     <thead>
     <tr>
+        <th>#订单编号</th>
         <th>创建时间</th>
         <th>出售方</th>
         <th>购买方</th>
@@ -13,6 +14,7 @@
     <tbody>
     @foreach ($orderList as $order)
         <tr>
+            <td>{{$order->sn}}</td>
             <td>{{$order->create_time}}</td>
             <td>{{$order->ad_uname}}</td>
             <td>{{$order->uname}}</td>
@@ -29,4 +31,6 @@
     @endforeach
     </tbody>
 </table>
+@if (method_exists($orderList, 'links'))
 {{ $orderList->links() }}
+@endif

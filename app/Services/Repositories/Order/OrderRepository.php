@@ -139,4 +139,16 @@ class OrderRepository implements OrderRepositoryInterface
             'ratio' => $record->rate ?  $record->rate : 0,
         ];
     }
+
+    /**
+     * @param string $sn
+     * @return Order
+     */
+    public function findBySn($sn)
+    {
+        if (empty($sn)) {
+            return null;
+        }
+        return Order::where('sn', $sn)->first();
+    }
 }
