@@ -28,4 +28,9 @@ class AdPicture
             return new self($value['filename']);
         }, $data);
     }
+
+    public function getUrl()
+    {
+        return $this->filename;
+    }
 }

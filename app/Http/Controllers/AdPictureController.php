@@ -7,7 +7,6 @@ use OtcCms\Models\AdPicture;
 
 class AdPictureController extends Controller
 {
-    //
     public function index(Request $requet)
     {
         return view('adpicture.index', [

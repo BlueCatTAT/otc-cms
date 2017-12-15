@@ -89,4 +89,6 @@ Route::get('/commissions', 'CommissionController@getCommissionList');
 Route::prefix('/adpicture')->group(function() {
     Route::get('/', 'AdPictureController@index')
         ->name('adpicture_list');
+    Route::post('/', 'AdPictureController@save')
+        ->name('adpicture_save');
 });
