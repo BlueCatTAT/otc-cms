@@ -9,9 +9,9 @@
             <div class="panel-body">
                 <div class="row" id="ad-pictures">
                     @foreach($pictures as $picture)
-                    <div class="col-md-3">
+                    <div class="col-md-3 ad-pictures-container">
                         <a href="#" class="thumbnail">
-                            <img src="{{ $picture->getUrl() }}">
+                            <img src="{{ $picture->getUrl() }}" class="ad-pictures">
                             <input type="hidden" value="{{ $picture->getUrl() }}" name="pictures[]">
                         </a>
                     </div>

@@ -19,3 +19,7 @@ Dropzone.options.dropzone = {
 };
 
 Sortable.create(document.getElementById('ad-pictures'));
+
+$('.ad-pictures-container').click(function() {
+    $(this).remove();
+});
