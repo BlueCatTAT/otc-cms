@@ -92,6 +92,10 @@ Route::post('/upload/image', 'UploadController@image')
 Route::prefix('/adpicture')->group(function() {
     Route::get('/', 'AdPictureController@index')
         ->name('adpicture_list');
+    Route::get('/add', 'AdPictureController@add')
+        ->name('adpicture_add');
     Route::post('/', 'AdPictureController@save')
         ->name('adpicture_save');
+    Route::post('/reorder', 'AdPictureController@reorder')
+        ->name('adpicture_reorder');
 });

@@ -2,27 +2,25 @@
 
 @section('content')
     <div class="container">
-        <form action="{{ route('adpicture_save') }}" method="post">
+        <form action="{{ route('adpicture_reorder') }}" method="post">
+        {{ csrf_field() }}
         <div class="panel panel-default">
             <div class="panel-heading">轮播图片</div>
             <div class="panel-body">
-                <div class="row">
+                <div class="row" id="ad-pictures">
                     @foreach($pictures as $picture)
                     <div class="col-md-3">
                         <a href="#" class="thumbnail">
                             <img src="{{ $picture->getUrl() }}">
+                            <input type="hidden" value="{{ $picture->getUrl() }}" name="pictures[]">
                         </a>
                     </div>
                     @endforeach
                 </div>
-                <button class="btn btn-default" type="button">上传图片</button>
+                <a class="btn btn-default" href="{{ route('adpicture_add') }}">上传图片</a>
                 <button class="btn btn-default">保存</button>
             </div>
         </div>
-        </form>
-        <form class="dropzone" action="{{ route('upload_image') }}" method="post">
-            {{ csrf_field() }}
-            <input type="file" name="file">
         </form>
     </div>
 @endsection

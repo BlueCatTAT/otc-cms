@@ -10,7 +10,7 @@
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
   },
   "devDependencies": {
-    "axios": "^0.16.2",
+    "axios": "^0.17.1",
     "bootstrap-sass": "^3.3.7",
     "cross-env": "^5.0.1",
     "jquery": "^3.1.1",
@@ -30,6 +30,7 @@
     "mdi": "^2.0.46",
     "node-sass": "^4.5.3",
     "pretty-checkbox": "^3.0.3",
+    "sortablejs": "^1.7.0",
     "vuejs-paginate": "^1.4.0"
   }
 }
