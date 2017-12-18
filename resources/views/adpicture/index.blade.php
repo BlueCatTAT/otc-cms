@@ -20,5 +20,13 @@
             </div>
         </div>
         </form>
+        <form class="dropzone" action="{{ route('upload_image') }}" method="post">
+            {{ csrf_field() }}
+            <input type="file" name="file">
+        </form>
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/ad_pictures.js') }}"></script>
 @endsection

@@ -70,7 +70,7 @@
 "use strict";
 
 
-var bind = __webpack_require__(3);
+var bind = __webpack_require__(4);
 var isBuffer = __webpack_require__(16);
 
 /*global toString:true*/
@@ -424,10 +424,10 @@ function getDefaultAdapter() {
   var adapter;
   if (typeof XMLHttpRequest !== 'undefined') {
     // For browsers use XHR adapter
-    adapter = __webpack_require__(5);
+    adapter = __webpack_require__(6);
   } else if (typeof process !== 'undefined') {
     // For node use HTTP adapter
-    adapter = __webpack_require__(5);
+    adapter = __webpack_require__(6);
   }
   return adapter;
 }
@@ -498,10 +498,38 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = defaults;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
 /* 3 */
+/***/ (function(module, exports) {
+
+module.exports = function(module) {
+	if(!module.webpackPolyfill) {
+		module.deprecate = function() {};
+		module.paths = [];
+		// module.parent = undefined by default
+		if(!module.children) module.children = [];
+		Object.defineProperty(module, "loaded", {
+			enumerable: true,
+			get: function() {
+				return module.l;
+			}
+		});
+		Object.defineProperty(module, "id", {
+			enumerable: true,
+			get: function() {
+				return module.i;
+			}
+		});
+		module.webpackPolyfill = 1;
+	}
+	return module;
+};
+
+
+/***/ }),
+/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -519,7 +547,7 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 4 */
+/* 5 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -709,7 +737,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -720,7 +748,7 @@ var settle = __webpack_require__(19);
 var buildURL = __webpack_require__(21);
 var parseHeaders = __webpack_require__(22);
 var isURLSameOrigin = __webpack_require__(23);
-var createError = __webpack_require__(6);
+var createError = __webpack_require__(7);
 var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(24);
 
 module.exports = function xhrAdapter(config) {
@@ -896,7 +924,7 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -921,7 +949,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -933,7 +961,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 8 */
+/* 9 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -959,11 +987,11 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 9 */
+/* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
 
-window._ = __webpack_require__(10);
+window._ = __webpack_require__(11);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -1017,7 +1045,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 10 */
+/* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -18106,35 +18134,7 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(11)(module)))
-
-/***/ }),
-/* 11 */
-/***/ (function(module, exports) {
-
-module.exports = function(module) {
-	if(!module.webpackPolyfill) {
-		module.deprecate = function() {};
-		module.paths = [];
-		// module.parent = undefined by default
-		if(!module.children) module.children = [];
-		Object.defineProperty(module, "loaded", {
-			enumerable: true,
-			get: function() {
-				return module.l;
-			}
-		});
-		Object.defineProperty(module, "id", {
-			enumerable: true,
-			get: function() {
-				return module.i;
-			}
-		});
-		module.webpackPolyfill = 1;
-	}
-	return module;
-};
-
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(3)(module)))
 
 /***/ }),
 /* 12 */
@@ -30793,7 +30793,7 @@ module.exports = __webpack_require__(15);
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(3);
+var bind = __webpack_require__(4);
 var Axios = __webpack_require__(17);
 var defaults = __webpack_require__(2);
 
@@ -30828,9 +30828,9 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(8);
+axios.Cancel = __webpack_require__(9);
 axios.CancelToken = __webpack_require__(31);
-axios.isCancel = __webpack_require__(7);
+axios.isCancel = __webpack_require__(8);
 
 // Expose all/spread
 axios.all = function all(promises) {
@@ -30990,7 +30990,7 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 "use strict";
 
 
-var createError = __webpack_require__(6);
+var createError = __webpack_require__(7);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -31409,7 +31409,7 @@ module.exports = InterceptorManager;
 
 var utils = __webpack_require__(0);
 var transformData = __webpack_require__(28);
-var isCancel = __webpack_require__(7);
+var isCancel = __webpack_require__(8);
 var defaults = __webpack_require__(2);
 
 /**
@@ -31562,7 +31562,7 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 "use strict";
 
 
-var Cancel = __webpack_require__(8);
+var Cancel = __webpack_require__(9);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -42472,7 +42472,7 @@ exports.clearImmediate = clearImmediate;
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(4)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1), __webpack_require__(5)))
 
 /***/ }),
 /* 36 */
@@ -42493,7 +42493,7 @@ module.exports = __webpack_require__(38);
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(9);
+__webpack_require__(10);
 
 window.Vue = __webpack_require__(33);
 

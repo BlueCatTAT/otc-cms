@@ -86,6 +86,9 @@ Route::prefix('customer')->group(function() {
 
 Route::get('/commissions', 'CommissionController@getCommissionList');
 
+Route::post('/upload/image', 'UploadController@image')
+    ->name('upload_image');
+
 Route::prefix('/adpicture')->group(function() {
     Route::get('/', 'AdPictureController@index')
         ->name('adpicture_list');
