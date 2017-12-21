@@ -38,6 +38,9 @@ class AdPicture
 
     public static function reset(array $filenames)
     {
+        if (empty($filenames)) {
+            Redis::del(self::$dataKey);
+        }
         Redis::set(self::$dataKey, json_encode($filenames));
     }
 

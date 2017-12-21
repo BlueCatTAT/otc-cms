@@ -34,7 +34,7 @@ class AdPictureController extends Controller
 
     public function reorder(Request $request)
     {
-        $files = $request->input('pictures');
+        $files = $request->input('pictures') ?: [];
         AdPicture::reset($files);
         return redirect()->back();
     }
